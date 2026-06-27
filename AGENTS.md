@@ -42,7 +42,7 @@ CI (`.github/workflows/ci.yml`) runs `pnpm install` → `pnpm run lint` → `pnp
   - `nuxt` — Nuxt runtime environment, for components/composables, in `test/nuxt/`
   - `e2e` — Node environment, for end-to-end tests, in `test/e2e/`
 - **Run tests**: `pnpm test`
-- **Run a specific project**: `npx vitest --project unit`
+- **Run a specific project**: `pnpm exec vitest --project unit`
 - **Helpers**: `mountSuspended` / `renderSuspended` from `@nuxt/test-utils/runtime`
 - **Nuxt DevTools**: Vitest integration available via `@nuxt/test-utils/module` (already in `nuxt.config.ts`)
 

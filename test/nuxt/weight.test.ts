@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 
+function flushPromises() {
+  return new Promise(resolve => setTimeout(resolve, 0))
+}
+
 async function mountPage() {
   const mod = await import('~/pages/weight.vue')
   return mountSuspended(mod.default)
@@ -35,7 +39,7 @@ describe('weight page', () => {
       const page = await mountPage()
 
       await page.find('form').trigger('submit')
-      await new Promise(resolve => setTimeout(resolve, 50))
+      await flushPromises()
 
       expect(page.text()).toContain('Weight is required')
     })
@@ -45,7 +49,7 @@ describe('weight page', () => {
 
       await setField(page, 0, '0')
       await page.find('form').trigger('submit')
-      await new Promise(resolve => setTimeout(resolve, 50))
+      await flushPromises()
 
       expect(page.text()).toContain('Weight is required')
     })
@@ -55,7 +59,7 @@ describe('weight page', () => {
 
       await setField(page, 0, '75')
       await page.find('form').trigger('submit')
-      await new Promise(resolve => setTimeout(resolve, 50))
+      await flushPromises()
 
       expect(page.text()).not.toContain('Weight is required')
       expect(page.text()).not.toContain('must be')

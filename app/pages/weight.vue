@@ -69,7 +69,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
     a.href = url
     a.download = `weight-${new Date().toISOString().slice(0, 10)}.fit`
     a.click()
-    URL.revokeObjectURL(url)
+    setTimeout(() => URL.revokeObjectURL(url), 10000)
     toast.add({ title: 'FIT file downloaded', color: 'success' })
   } catch {
     toast.add({ title: 'Failed to generate FIT file', color: 'error' })

@@ -2,7 +2,6 @@
 withDefaults(defineProps<{
   as?: 'span' | 'div' | 'h1' | 'h2'
   size?: string
-  class?: string
 }>(), {
   as: 'span',
   size: 'text-base'

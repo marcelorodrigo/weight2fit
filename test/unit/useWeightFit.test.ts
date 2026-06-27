@@ -70,6 +70,7 @@ describe('useWeightFit', () => {
       const { messages } = decoder.read()
 
       expect(messages.weightScaleMesgs![0].timestamp).toBeInstanceOf(Date)
+      expect(messages.weightScaleMesgs![0].timeCreated).toBeInstanceOf(Date)
     })
   })
 })
