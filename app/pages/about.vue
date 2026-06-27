@@ -1,3 +1,11 @@
+<script setup lang="ts">
+usePageSeo({
+  title: 'About Weight 2 FIT - Privacy-First Fitness Data Tool',
+  description: 'Learn how Weight 2 FIT helps you import body composition data to Garmin Connect securely. No servers, no account compromise—100% client-side FIT file generation.',
+  ogDescription: 'A privacy-first tool to generate Garmin FIT files from body composition measurements. Your data never leaves your device. Free and open source.'
+})
+</script>
+
 <template>
   <div class="flex flex-col items-center">
     <UPageHero

@@ -1,3 +1,11 @@
+<script setup lang="ts">
+usePageSeo({
+  title: 'Weight 2 FIT - Generate Weight Scale FIT Files',
+  description: 'Import body composition data into any device that supports FIT files. Generate FIT-format files from your metrics instantly.',
+  ogDescription: 'Generate Weight Scale FIT files from your body composition data. Import metrics into any FIT-compatible device or fitness app.'
+})
+</script>
+
 <template>
   <div>
     <UPageHero

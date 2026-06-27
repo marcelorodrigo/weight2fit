@@ -2,6 +2,12 @@
 import type { WeightFormState } from '~/composables/useWeightFit'
 import type { FormError, FormSubmitEvent } from '@nuxt/ui'
 
+usePageSeo({
+  title: 'Weight Scale FIT Generator - Convert Body Metrics to FIT Files',
+  description: 'Generate FIT-format weight scale files from your body composition data. Input weight, body fat, muscle mass, and more to create files for Garmin and compatible devices.',
+  ogDescription: 'Generate a Weight Scale FIT file from body composition data. Input metrics including weight, body fat %, muscle mass, and download instantly.'
+})
+
 const toast = useToast()
 const state = reactive<Partial<WeightFormState>>({})
 
