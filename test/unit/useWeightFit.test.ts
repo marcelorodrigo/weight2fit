@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Decoder, Stream } from '@garmin/fitsdk'
-import { useWeightFit } from '../../app/composables/useWeightFit'
+import { useWeightFit, useWeightFitSchema, type WeightFormState, type FormSchema } from '../../app/composables/useWeightFit'
 
 describe('useWeightFit', () => {
   describe('encode', () => {
