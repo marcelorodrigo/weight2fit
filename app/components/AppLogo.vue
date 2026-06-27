@@ -19,6 +19,6 @@ withDefaults(defineProps<{
       $attrs.class
     ]"
   >
-    Garmin Tools
+    Weight 2 FIT
   </component>
 </template>
