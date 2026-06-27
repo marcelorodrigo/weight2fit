@@ -4,10 +4,6 @@ export default defineNuxtConfig({
   modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/seo'],
   ssr: false,
 
-  ogImage: {
-    enabled: false
-  },
-
   devtools: {
     enabled: true
   },
@@ -31,5 +27,9 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+
+  ogImage: {
+    enabled: false
   }
 })
