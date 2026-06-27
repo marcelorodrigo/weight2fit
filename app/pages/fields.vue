@@ -55,11 +55,11 @@ const fields = [
   },
   {
     name: 'Physique Rating',
-    description: 'A subjective scale (1–9) rating your overall body composition. 1 = Obese, 9 = Very Lean.'
+    description: 'A scale (1–9) categorizing body composition into 9 distinct body types based on fat-to-muscle ratio. 1 = Hidden Obese, 5 = Standard, 9 = Very Muscular.'
   },
   {
     name: 'Visceral Fat Rating',
-    description: 'A scale (1–9) indicating your visceral (deep) body fat level. Lower is healthier.'
+    description: 'A scale (1–59) indicating visceral fat level (fat around organs). 1–12 = Healthy/Standard, 13–59 = Excess/High-risk.'
   }
 ]
 </script>
