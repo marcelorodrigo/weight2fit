@@ -61,8 +61,8 @@ function validate(state: Partial<WeightFormState>): FormError[] {
     errors.push({ name: 'metabolicAge', message: 'Metabolic age must be a positive integer' })
   }
 
-  if (state.visceralFatRating !== undefined && (state.visceralFatRating < 1 || state.visceralFatRating > 9)) {
-    errors.push({ name: 'visceralFatRating', message: 'Visceral fat rating must be between 1 and 9' })
+  if (state.visceralFatRating !== undefined && (state.visceralFatRating < 1 || state.visceralFatRating > 59)) {
+    errors.push({ name: 'visceralFatRating', message: 'Visceral fat rating must be between 1 and 59' })
   }
 
   if (state.bmi !== undefined && state.bmi <= 0) {
@@ -299,7 +299,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
           <UFormField
             name="physiqueRating"
             label="Physique Rating"
-            hint="1 (Obese) to 9 (Very lean)"
+            hint="1 (Hidden Obese) to 9 (Very Muscular)"
           >
             <UInputNumber
               v-model="state.physiqueRating"
@@ -314,15 +314,15 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
           <UFormField
             name="visceralFatRating"
             label="Visceral Fat Rating"
-            hint="1–9"
+            hint="1–59 (1-12: Healthy, 13-59: High)"
           >
             <UInputNumber
               v-model="state.visceralFatRating"
               name="visceralFatRating"
               :min="1"
-              :max="9"
+              :max="59"
               :step="1"
-              placeholder="1–9"
+              placeholder="1–59"
             />
           </UFormField>
         </div>

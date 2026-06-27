@@ -171,6 +171,10 @@ describe('useWeightFit', () => {
       const physiqueField = schema.fields.find(f => f.name === 'physiqueRating')
       expect(physiqueField?.minimum).toBe(1)
       expect(physiqueField?.maximum).toBe(9)
+
+      const visceralFatField = schema.fields.find(f => f.name === 'visceralFatRating')
+      expect(visceralFatField?.minimum).toBe(1)
+      expect(visceralFatField?.maximum).toBe(59)
     })
 
     it('specifies unit information for fields', () => {

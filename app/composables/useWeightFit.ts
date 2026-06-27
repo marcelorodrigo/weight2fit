@@ -202,11 +202,11 @@ export const weightFormSchema: FormSchema = {
       label: 'Physique Rating',
       type: 'integer',
       required: false,
-      description: 'Subjective physique rating from 1 (obese) to 9 (very lean)',
+      description: 'Body composition rating from 1 (Hidden Obese) to 9 (Very Muscular), based on body fat to muscle mass ratio',
       minimum: 1,
       maximum: 9,
       multipleOf: 1,
-      example: 7,
+      example: 5,
       section: 'ratings'
     },
     {
@@ -214,11 +214,11 @@ export const weightFormSchema: FormSchema = {
       label: 'Visceral Fat Rating',
       type: 'integer',
       required: false,
-      description: 'Subjective visceral fat rating from 1 (high) to 9 (low)',
+      description: 'Visceral fat level from 1 to 59. Healthy/standard: 1-12, High/excess: 13-59',
       minimum: 1,
-      maximum: 9,
+      maximum: 59,
       multipleOf: 1,
-      example: 3,
+      example: 8,
       section: 'ratings'
     }
   ]
