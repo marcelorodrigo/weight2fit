@@ -88,17 +88,6 @@ useSeoMeta({
           © {{ new Date().getFullYear() }} Weight 2 FIT
         </p>
       </template>
-
-      <template #right>
-        <UButton
-          to="https://github.com/marcelorodrigo/weight2fit"
-          target="_blank"
-          icon="i-simple-icons-github"
-          aria-label="GitHub"
-          color="neutral"
-          variant="ghost"
-        />
-      </template>
     </UFooter>
   </UApp>
 </template>
