@@ -4,7 +4,7 @@
     "nuxt": {
       "type": "remote",
       "url": "https://nuxt.com/mcp",
-      "enabled": true
+      "enabled": false
     }
   }
 }

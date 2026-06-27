@@ -50,10 +50,10 @@ The generator accepts the following body composition measurements:
 
 ## Pages
 
-- **Home** (/) — Introduction and call-to-action to the Weight Scale FIT Generator.
-- **Weight Generator** (/weight) — Interactive form to input body composition data and generate FIT files.
-- **About** (/about) — Detailed explanation of the problem, solution, how it works, and why this approach is better.
-- **Fields Reference** (/fields) — Technical documentation of FIT file fields supported.
+- [Home](https://weight2fit.marcelorodrigo.com/) — Introduction and call-to-action to the Weight Scale FIT Generator.
+- [Weight Generator](https://weight2fit.marcelorodrigo.com/weight) — Interactive form to input body composition data and generate FIT files.
+- [About](https://weight2fit.marcelorodrigo.com/about) — Detailed explanation of the problem, solution, how it works, and why this approach is better.
+- [Fields Reference](https://weight2fit.marcelorodrigo.com/fields) — Technical documentation of FIT file fields supported.
 
 ## Technology Stack
 

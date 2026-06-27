@@ -52,17 +52,6 @@ useSchemaOrg([
       </template>
     </UPageHero>
 
-    <UPageSection
-      id="core"
-      title="Core Feature"
-      description="Start with the Weight Scale FIT Generator"
-      :features="[{
-        icon: 'i-lucide-scale',
-        title: 'Weight Scale FIT Generator',
-        description: 'Input your body composition metrics (weight, body fat %, muscle mass, etc.) and generate a standard FIT file you can import into any compatible device or fitness app.'
-      }]"
-    />
-
     <UPageSection>
       <UPageCTA
         title="Ready to get started?"
