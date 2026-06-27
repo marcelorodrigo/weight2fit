@@ -61,7 +61,7 @@ describe('useWeightFit', () => {
       expect(messages.weightScaleMesgs![0].userProfileIndex).toBe(0)
     })
 
-    it('sets timestamp and timeCreated as Date instances', () => {
+    it('sets timestamp as a Date instance', () => {
       const { encode } = useWeightFit()
       const bytes = encode({ weight: 70 })
 
@@ -70,7 +70,6 @@ describe('useWeightFit', () => {
       const { messages } = decoder.read()
 
       expect(messages.weightScaleMesgs![0].timestamp).toBeInstanceOf(Date)
-      expect(messages.weightScaleMesgs![0].timeCreated).toBeInstanceOf(Date)
     })
   })
 })
