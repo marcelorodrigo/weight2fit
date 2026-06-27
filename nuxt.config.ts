@@ -1,6 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+
   modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/seo'],
+  ssr: false,
 
   devtools: {
     enabled: true
@@ -8,11 +10,22 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  site: {
+    ...(process.env.CF_PAGES_URL && { url: process.env.CF_PAGES_URL })
+  },
+
   routeRules: {
     '/': { prerender: true }
   },
 
-  compatibilityDate: '2025-01-15',
+  compatibilityDate: '2026-06-27',
+
+  nitro: {
+    preset: 'cloudflare_pages_static',
+    prerender: {
+      autoSubfolderIndex: false
+    }
+  },
 
   eslint: {
     config: {
