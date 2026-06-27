@@ -1,4 +1,17 @@
 <script setup lang="ts">
+usePageSeo({
+  title: 'Body Composition Metrics Guide - Weight 2 FIT',
+  description: 'Learn about all body composition metrics in Weight 2 FIT: weight, BMI, body fat %, muscle mass, metabolic rate, visceral fat, and more. Understand what each measurement means.',
+  ogDescription: 'Comprehensive guide to body composition fields: weight, body fat %, hydration, muscle mass, basal metabolic rate, and other fitness metrics.'
+})
+
+useSchemaOrg([
+  defineWebPage({
+    name: 'Body Composition Metrics Guide',
+    description: 'Learn about all body composition metrics in Weight 2 FIT.'
+  })
+])
+
 const fields = [
   {
     name: 'Weight',

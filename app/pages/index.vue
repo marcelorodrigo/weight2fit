@@ -1,3 +1,31 @@
+<script setup lang="ts">
+usePageSeo({
+  title: 'Weight 2 FIT - Generate Weight Scale FIT Files',
+  description: 'Import body composition data into any device that supports FIT files. Generate FIT-format files from your metrics instantly.',
+  ogDescription: 'Generate Weight Scale FIT files from your body composition data. Import metrics into any FIT-compatible device or fitness app.'
+})
+
+const siteConfig = useSiteConfig()
+const siteUrl = siteConfig.url
+
+useSchemaOrg([
+  defineWebSite({
+    name: 'Weight 2 FIT',
+    url: siteUrl
+  }),
+  defineWebPage({
+    name: 'Weight 2 FIT - Generate Weight Scale FIT Files',
+    description: 'Import body composition data into any device that supports FIT files. Generate FIT-format files from your metrics instantly.'
+  }),
+  defineOrganization({
+    name: 'Weight 2 FIT',
+    url: siteUrl,
+    logo: `${siteUrl}/favicon.svg`,
+    sameAs: ['https://github.com/marcelorodrigo/weight2fit']
+  })
+])
+</script>
+
 <template>
   <div>
     <UPageHero

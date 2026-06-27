@@ -1,7 +1,16 @@
 <script setup lang="ts">
+const config = useAppConfig()
+
 useHead({
   meta: [
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { name: 'description', content: config.seo.siteDescription },
+    { name: 'keywords', content: config.seo.keywords },
+    { name: 'author', content: config.seo.author },
+    { name: 'theme-color', content: '#0ea5e9' },
+    { property: 'og:site_name', content: config.seo.siteName },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' }
   ],
   link: [
     { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
@@ -18,8 +27,7 @@ useSeoMeta({
   title,
   description,
   ogTitle: title,
-  ogDescription: description,
-  twitterCard: 'summary_large_image'
+  ogDescription: description
 })
 </script>
 

@@ -11,7 +11,11 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   site: {
-    ...(process.env.CF_PAGES_URL && { url: process.env.CF_PAGES_URL })
+    url: process.env.CF_PAGES_URL || 'https://weight2fit.marcelorodrigo.com',
+    name: 'Weight 2 FIT',
+    description: 'Generate Weight Scale FIT files from your body composition data. Import metrics into any FIT-compatible device or fitness app.',
+    defaultLocale: 'en',
+    ogImage: '/og-image.png'
   },
 
   routeRules: {
@@ -31,5 +35,11 @@ export default defineNuxtConfig({
 
   ogImage: {
     enabled: false
+  },
+
+  sitemap: {
+    sources: [
+      '/api/__sitemap__/urls'
+    ]
   }
 })

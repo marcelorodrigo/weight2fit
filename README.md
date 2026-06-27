@@ -1,64 +1,28 @@
-# Nuxt Starter Template
+# Weight 2 FIT
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+A privacy-first tool to import body composition measurements from any source into Garmin Connect, without compromising your account security or sharing data with third-party servers.
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+## The Problem
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+Most third-party sync tools for body scales and Garmin Connect either require you to disable two-factor authentication or relay your health data through their own servers. Garmin Connect on the other hand allows you to import FIT files that contain body weight composition information into your platform.
 
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png" width="830" height="466">
-  </picture>
-</a>
+## The Solution
 
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
+Weight2Fit generates a standard Garmin FIT weight-scale file **directly in your browser**. Your data never leaves your device, and you maintain complete control over your privacy and security.
 
-## Quick Start
+You just need to manually type in your measurements, download the file, and import it into Garmin Connect. That's a small price to pay for security and privacy.
 
-```bash [Terminal]
-npm create nuxt@latest -- -t ui
-```
+## How It Works
 
-## Deploy your own
+1. **Enter your data** — Body composition measurements from your scale. Weight is required; body fat %, bone mass, muscle mass, body water %, visceral fat rating, metabolic age, and additional optional measurements are available.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
+2. **Generate & download** — The app encodes your data into a standard Garmin FIT weight-scale file using the official Garmin JavaScript FIT SDK, running entirely in your browser.
 
-## Setup
+3. **Import into Garmin Connect** — Go to [connect.garmin.com](https://connect.garmin.com), navigate to **Health Stats → Body Composition**, and use the import button to upload the `.fit` file.
 
-Make sure to install the dependencies:
+## Why This Approach?
 
-```bash
-pnpm install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-pnpm dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-pnpm build
-```
-
-Locally preview production build:
-
-```bash
-pnpm preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-
-## Renovate integration
-
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+- **Your data stays on your device** — No third-party servers, no data relay
+- **100% client-side** — Powered by the official Garmin FIT SDK
+- **Standard format** — Creates legitimate Garmin FIT files compatible with all Garmin services
+- **No account compromise** — You control when and what gets imported

@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://weight2fit.app/weight-form-schema.json",
+  "title": "Weight Scale Form",
+  "description": "Record weight and body composition metrics in Garmin FIT format. The form accepts weight as a required field and multiple optional body composition, metabolic, and rating metrics.",
+  "type": "object",
+  "properties": {
+    "weight": {
+      "type": "number",
+      "title": "Weight",
+      "description": "Body weight in kilograms. Required field.",
+      "unit": "kg",
+      "exclusiveMinimum": 0,
+      "multipleOf": 0.1,
+      "example": 75.5
+    },
+    "bmi": {
+      "type": "number",
+      "title": "Body Mass Index",
+      "description": "Body mass index calculated as weight (kg) / height² (m²)",
+      "unit": "kg/m²",
+      "exclusiveMinimum": 0,
+      "multipleOf": 0.1,
+      "example": 23.5
+    },
+    "percentFat": {
+      "type": "number",
+      "title": "Body Fat Percentage",
+      "description": "Percentage of body weight that is fat tissue",
+      "unit": "%",
+      "minimum": 0,
+      "maximum": 100,
+      "multipleOf": 0.1,
+      "example": 18.5
+    },
+    "percentHydration": {
+      "type": "number",
+      "title": "Hydration Percentage",
+      "description": "Percentage of body weight that is water",
+      "unit": "%",
+      "minimum": 0,
+      "maximum": 100,
+      "multipleOf": 0.1,
+      "example": 55
+    },
+    "visceralFatMass": {
+      "type": "number",
+      "title": "Visceral Fat Mass",
+      "description": "Mass of visceral fat (fat around organs) in kilograms",
+      "unit": "kg",
+      "minimum": 0,
+      "multipleOf": 0.1,
+      "example": 3.2
+    },
+    "boneMass": {
+      "type": "number",
+      "title": "Bone Mass",
+      "description": "Total bone mass in kilograms",
+      "unit": "kg",
+      "minimum": 0,
+      "multipleOf": 0.1,
+      "example": 2.8
+    },
+    "muscleMass": {
+      "type": "number",
+      "title": "Muscle Mass",
+      "description": "Total muscle mass in kilograms",
+      "unit": "kg",
+      "minimum": 0,
+      "multipleOf": 0.1,
+      "example": 35
+    },
+    "basalMet": {
+      "type": "number",
+      "title": "Basal Metabolic Rate",
+      "description": "Energy expenditure at rest in kilocalories per day",
+      "unit": "kcal/day",
+      "minimum": 0,
+      "multipleOf": 1,
+      "example": 1700
+    },
+    "activeMet": {
+      "type": "number",
+      "title": "Active Metabolic Rate",
+      "description": "Energy expenditure with activity in kilocalories per day",
+      "unit": "kcal/day",
+      "minimum": 0,
+      "multipleOf": 1,
+      "example": 2100
+    },
+    "metabolicAge": {
+      "type": "integer",
+      "title": "Metabolic Age",
+      "description": "Biological age estimate based on metabolic rate in years",
+      "unit": "years",
+      "minimum": 1,
+      "multipleOf": 1,
+      "example": 30
+    },
+    "physiqueRating": {
+      "type": "integer",
+      "title": "Physique Rating",
+      "description": "Subjective physique rating from 1 (obese) to 9 (very lean)",
+      "minimum": 1,
+      "maximum": 9,
+      "multipleOf": 1,
+      "example": 7
+    },
+    "visceralFatRating": {
+      "type": "integer",
+      "title": "Visceral Fat Rating",
+      "description": "Subjective visceral fat rating from 1 (high) to 9 (low)",
+      "minimum": 1,
+      "maximum": 9,
+      "multipleOf": 1,
+      "example": 3
+    }
+  },
+  "required": [
+    "weight"
+  ],
+  "additionalProperties": false
+}
