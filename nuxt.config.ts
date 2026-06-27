@@ -8,11 +8,11 @@ export default defineNuxtConfig({
     enabled: true
   },
 
+  css: ['~/assets/css/main.css'],
+
   site: {
     ...(process.env.CF_PAGES_URL && { url: process.env.CF_PAGES_URL })
   },
-
-  css: ['~/assets/css/main.css'],
 
   routeRules: {
     '/': { prerender: true }
