@@ -10,10 +10,6 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  ogImage: {
-    enabled: false
-  },
-
   site: {
     url: process.env.CF_PAGES_URL || 'https://weight2fit.marcelorodrigo.com',
     name: 'Weight 2 FIT',
@@ -26,12 +22,6 @@ export default defineNuxtConfig({
     '/': { prerender: true }
   },
 
-  sitemap: {
-    sources: [
-      '/api/__sitemap__/urls'
-    ]
-  },
-
   compatibilityDate: '2026-06-27',
 
   eslint: {
@@ -41,5 +31,15 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+
+  ogImage: {
+    enabled: false
+  },
+
+  sitemap: {
+    sources: [
+      '/api/__sitemap__/urls'
+    ]
   }
 })

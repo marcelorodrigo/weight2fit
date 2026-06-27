@@ -55,16 +55,31 @@ useSchemaOrg([
         </template>
         <div class="space-y-3 text-sm">
           <div>
-            <p class="font-semibold leading-relaxed">1. Enter your data</p>
-            <p class="leading-relaxed">Body composition measurements from your Renpho scale. Weight is required; body fat %, bone mass, muscle mass, body water %, visceral fat rating, and metabolic age are optional.</p>
+            <p class="font-semibold leading-relaxed">
+              1. Enter your data
+            </p>
+            <p class="leading-relaxed">
+              Body composition measurements from your Renpho scale. Weight is required; body fat %, bone mass, muscle mass, body water %, visceral fat rating, and metabolic age are optional.
+            </p>
           </div>
           <div>
-            <p class="font-semibold leading-relaxed">2. Generate & download</p>
-            <p class="leading-relaxed">The app encodes your data into a standard Garmin FIT weight-scale file using the official Garmin JavaScript FIT SDK, running entirely in your browser.</p>
+            <p class="font-semibold leading-relaxed">
+              2. Generate & download
+            </p>
+            <p class="leading-relaxed">
+              The app encodes your data into a standard Garmin FIT weight-scale file using the official Garmin JavaScript FIT SDK, running entirely in your browser.
+            </p>
           </div>
           <div>
-            <p class="font-semibold leading-relaxed">3. Import into Garmin Connect</p>
-            <p class="leading-relaxed">Go to <ULink to="https://connect.garmin.com" target="_blank">connect.garmin.com</ULink>, navigate to <strong>Health Stats → Body Composition</strong>, and use the import button to upload the <code class="bg-gray-100 px-1 rounded">.fit</code> file.</p>
+            <p class="font-semibold leading-relaxed">
+              3. Import into Garmin Connect
+            </p>
+            <p class="leading-relaxed">
+              Go to <ULink
+                to="https://connect.garmin.com"
+                target="_blank"
+              >connect.garmin.com</ULink>, navigate to <strong>Health Stats → Body Composition</strong>, and use the import button to upload the <code class="bg-gray-100 px-1 rounded">.fit</code> file.
+            </p>
           </div>
         </div>
       </UCard>
@@ -76,10 +91,18 @@ useSchemaOrg([
           </h2>
         </template>
         <div class="space-y-2 text-sm">
-          <p class="leading-relaxed"><strong>Your data stays on your device</strong> — No third-party servers, no data relay</p>
-          <p class="leading-relaxed"><strong>100% client-side</strong> — Powered by the official Garmin FIT SDK</p>
-          <p class="leading-relaxed"><strong>Standard format</strong> — Creates legitimate Garmin FIT files compatible with all Garmin services</p>
-          <p class="leading-relaxed"><strong>No account compromise</strong> — You control when and what gets imported</p>
+          <p class="leading-relaxed">
+            <strong>Your data stays on your device</strong> — No third-party servers, no data relay
+          </p>
+          <p class="leading-relaxed">
+            <strong>100% client-side</strong> — Powered by the official Garmin FIT SDK
+          </p>
+          <p class="leading-relaxed">
+            <strong>Standard format</strong> — Creates legitimate Garmin FIT files compatible with all Garmin services
+          </p>
+          <p class="leading-relaxed">
+            <strong>No account compromise</strong> — You control when and what gets imported
+          </p>
         </div>
       </UCard>
 

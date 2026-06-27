@@ -16,6 +16,220 @@ export interface WeightFormState {
   bmi?: number
 }
 
+export interface FormFieldSchema {
+  name: string
+  label: string
+  type: 'number' | 'integer'
+  required: boolean
+  description: string
+  unit?: string
+  minimum?: number
+  maximum?: number
+  exclusiveMinimum?: boolean
+  exclusiveMaximum?: boolean
+  step?: number
+  example?: number
+  section: 'basic' | 'composition' | 'metabolic' | 'ratings'
+}
+
+export interface FormSection {
+  id: 'basic' | 'composition' | 'metabolic' | 'ratings'
+  title: string
+  description?: string
+}
+
+export interface FormSchema {
+  version: '1.0'
+  formId: 'weight-scale'
+  title: string
+  description: string
+  sections: FormSection[]
+  fields: FormFieldSchema[]
+}
+
+export const weightFormSchema: FormSchema = {
+  version: '1.0',
+  formId: 'weight-scale',
+  title: 'Weight Scale Form',
+  description: 'Record weight and body composition metrics in Garmin FIT format. The form accepts weight as a required field and multiple optional body composition, metabolic, and rating metrics.',
+  sections: [
+    {
+      id: 'basic',
+      title: 'Basic Metrics',
+      description: 'Essential measurements for weight tracking'
+    },
+    {
+      id: 'composition',
+      title: 'Body Composition',
+      description: 'Detailed breakdown of body mass components'
+    },
+    {
+      id: 'metabolic',
+      title: 'Metabolic Data',
+      description: 'Metabolic rates and biological age'
+    },
+    {
+      id: 'ratings',
+      title: 'Fitness Ratings',
+      description: 'Subjective ratings for body composition'
+    }
+  ],
+  fields: [
+    {
+      name: 'weight',
+      label: 'Weight',
+      type: 'number',
+      required: true,
+      description: 'Body weight in kilograms. Required field.',
+      unit: 'kg',
+      minimum: 0,
+      exclusiveMinimum: true,
+      step: 0.1,
+      example: 75.5,
+      section: 'basic'
+    },
+    {
+      name: 'bmi',
+      label: 'Body Mass Index',
+      type: 'number',
+      required: false,
+      description: 'Body mass index calculated as weight (kg) / height² (m²)',
+      unit: 'kg/m²',
+      minimum: 0,
+      exclusiveMinimum: true,
+      step: 0.1,
+      example: 23.5,
+      section: 'basic'
+    },
+    {
+      name: 'percentFat',
+      label: 'Body Fat Percentage',
+      type: 'number',
+      required: false,
+      description: 'Percentage of body weight that is fat tissue',
+      unit: '%',
+      minimum: 0,
+      maximum: 100,
+      step: 0.1,
+      example: 18.5,
+      section: 'composition'
+    },
+    {
+      name: 'percentHydration',
+      label: 'Hydration Percentage',
+      type: 'number',
+      required: false,
+      description: 'Percentage of body weight that is water',
+      unit: '%',
+      minimum: 0,
+      maximum: 100,
+      step: 0.1,
+      example: 55,
+      section: 'composition'
+    },
+    {
+      name: 'visceralFatMass',
+      label: 'Visceral Fat Mass',
+      type: 'number',
+      required: false,
+      description: 'Mass of visceral fat (fat around organs) in kilograms',
+      unit: 'kg',
+      minimum: 0,
+      step: 0.1,
+      example: 3.2,
+      section: 'composition'
+    },
+    {
+      name: 'boneMass',
+      label: 'Bone Mass',
+      type: 'number',
+      required: false,
+      description: 'Total bone mass in kilograms',
+      unit: 'kg',
+      minimum: 0,
+      step: 0.1,
+      example: 2.8,
+      section: 'composition'
+    },
+    {
+      name: 'muscleMass',
+      label: 'Muscle Mass',
+      type: 'number',
+      required: false,
+      description: 'Total muscle mass in kilograms',
+      unit: 'kg',
+      minimum: 0,
+      step: 0.1,
+      example: 35,
+      section: 'composition'
+    },
+    {
+      name: 'basalMet',
+      label: 'Basal Metabolic Rate',
+      type: 'number',
+      required: false,
+      description: 'Energy expenditure at rest in kilocalories per day',
+      unit: 'kcal/day',
+      minimum: 0,
+      step: 1,
+      example: 1700,
+      section: 'metabolic'
+    },
+    {
+      name: 'activeMet',
+      label: 'Active Metabolic Rate',
+      type: 'number',
+      required: false,
+      description: 'Energy expenditure with activity in kilocalories per day',
+      unit: 'kcal/day',
+      minimum: 0,
+      step: 1,
+      example: 2100,
+      section: 'metabolic'
+    },
+    {
+      name: 'metabolicAge',
+      label: 'Metabolic Age',
+      type: 'integer',
+      required: false,
+      description: 'Biological age estimate based on metabolic rate in years',
+      unit: 'years',
+      minimum: 1,
+      step: 1,
+      example: 30,
+      section: 'metabolic'
+    },
+    {
+      name: 'physiqueRating',
+      label: 'Physique Rating',
+      type: 'integer',
+      required: false,
+      description: 'Subjective physique rating from 1 (obese) to 9 (very lean)',
+      minimum: 1,
+      maximum: 9,
+      step: 1,
+      example: 7,
+      section: 'ratings'
+    },
+    {
+      name: 'visceralFatRating',
+      label: 'Visceral Fat Rating',
+      type: 'integer',
+      required: false,
+      description: 'Subjective visceral fat rating from 1 (high) to 9 (low)',
+      minimum: 1,
+      maximum: 9,
+      step: 1,
+      example: 3,
+      section: 'ratings'
+    }
+  ]
+}
+
+export function useWeightFitSchema() {
+  return weightFormSchema
+}
+
 export function useWeightFit() {
   function encode(data: WeightFormState): Uint8Array {
     const encoder = new Encoder()
@@ -52,3 +266,4 @@ export function useWeightFit() {
 
   return { encode }
 }
+
