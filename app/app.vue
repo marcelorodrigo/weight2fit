@@ -1,25 +1,24 @@
-<script setup>
+<script setup lang="ts">
 useHead({
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' }
   ],
   link: [
-    { rel: 'icon', href: '/favicon.ico' }
+    { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
   ],
   htmlAttrs: {
     lang: 'en'
   }
 })
 
-const title = 'Nuxt Starter Template'
-const description = 'A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours.'
+const title = 'Garmin Tools'
+const description = 'Handy utilities for Garmin device data. Generate Weight Scale FIT files, convert, and analyze.'
 
 useSeoMeta({
   title,
   description,
   ogTitle: title,
   ogDescription: description,
-  ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/starter-light.png',
   twitterCard: 'summary_large_image'
 })
 </script>
@@ -28,18 +27,34 @@ useSeoMeta({
   <UApp>
     <UHeader>
       <template #left>
-        <NuxtLink to="/">
-          <AppLogo class="w-auto h-6 shrink-0" />
+        <NuxtLink
+          to="/"
+          class="flex items-center gap-2"
+        >
+          <AppLogo
+            size="text-base"
+            class="hidden sm:inline"
+          />
         </NuxtLink>
 
-        <TemplateMenu />
+        <UNavigationMenu
+          :items="[{
+            label: 'Home',
+            to: '/'
+          }, {
+            label: 'Weight Tool',
+            to: '/weight'
+          }]"
+          variant="link"
+          color="neutral"
+        />
       </template>
 
       <template #right>
         <UColorModeButton />
 
         <UButton
-          to="https://github.com/nuxt-ui-templates/starter"
+          to="https://github.com/marcelorodrigo/garmin-tools"
           target="_blank"
           icon="i-simple-icons-github"
           aria-label="GitHub"
@@ -53,18 +68,16 @@ useSeoMeta({
       <NuxtPage />
     </UMain>
 
-    <USeparator icon="i-simple-icons-nuxtdotjs" />
-
     <UFooter>
       <template #left>
-        <p class="text-sm text-muted">
-          Built with Nuxt UI • © {{ new Date().getFullYear() }}
+        <p class="text-sm text-(--ui-text-muted)">
+          © {{ new Date().getFullYear() }} Garmin Tools
         </p>
       </template>
 
       <template #right>
         <UButton
-          to="https://github.com/nuxt-ui-templates/starter"
+          to="https://github.com/marcelorodrigo/garmin-tools"
           target="_blank"
           icon="i-simple-icons-github"
           aria-label="GitHub"
