@@ -266,4 +266,3 @@ export function useWeightFit() {
 
   return { encode }
 }
-

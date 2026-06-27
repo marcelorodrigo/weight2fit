@@ -121,23 +121,38 @@ const schema = useWeightFitSchema()
                 </p>
 
                 <div class="grid grid-cols-2 gap-2 text-xs text-gray-600 dark:text-gray-400">
-                  <div v-if="field.unit" class="col-span-1">
+                  <div
+                    v-if="field.unit"
+                    class="col-span-1"
+                  >
                     <span class="font-semibold">Unit:</span> {{ field.unit }}
                   </div>
-                  <div v-if="field.example !== undefined" class="col-span-1">
+                  <div
+                    v-if="field.example !== undefined"
+                    class="col-span-1"
+                  >
                     <span class="font-semibold">Example:</span> {{ field.example }}
                   </div>
-                  <div v-if="field.minimum !== undefined" class="col-span-1">
+                  <div
+                    v-if="field.minimum !== undefined"
+                    class="col-span-1"
+                  >
                     <span class="font-semibold">Min:</span>
                     <span v-if="field.exclusiveMinimum"> &gt; {{ field.minimum }}</span>
                     <span v-else> ≥ {{ field.minimum }}</span>
                   </div>
-                  <div v-if="field.maximum !== undefined" class="col-span-1">
+                  <div
+                    v-if="field.maximum !== undefined"
+                    class="col-span-1"
+                  >
                     <span class="font-semibold">Max:</span>
                     <span v-if="field.exclusiveMaximum"> &lt; {{ field.maximum }}</span>
                     <span v-else> ≤ {{ field.maximum }}</span>
                   </div>
-                  <div v-if="field.step !== undefined" class="col-span-2">
+                  <div
+                    v-if="field.step !== undefined"
+                    class="col-span-2"
+                  >
                     <span class="font-semibold">Step:</span> {{ field.step }}
                   </div>
                 </div>
