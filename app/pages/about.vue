@@ -4,6 +4,13 @@ usePageSeo({
   description: 'Learn how Weight 2 FIT helps you import body composition data to Garmin Connect securely. No servers, no account compromise—100% client-side FIT file generation.',
   ogDescription: 'A privacy-first tool to generate Garmin FIT files from body composition measurements. Your data never leaves your device. Free and open source.'
 })
+
+useSchemaOrg([
+  defineWebPage({
+    name: 'About Weight 2 FIT',
+    description: 'Learn how Weight 2 FIT helps you import body composition data to Garmin Connect securely.'
+  })
+])
 </script>
 
 <template>

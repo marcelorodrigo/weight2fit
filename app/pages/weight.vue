@@ -8,6 +8,13 @@ usePageSeo({
   ogDescription: 'Generate a Weight Scale FIT file from body composition data. Input metrics including weight, body fat %, muscle mass, and download instantly.'
 })
 
+useSchemaOrg([
+  defineWebPage({
+    name: 'Weight Scale FIT Generator',
+    description: 'Generate FIT-format weight scale files from your body composition data.'
+  })
+])
+
 const toast = useToast()
 const state = reactive<Partial<WeightFormState>>({})
 

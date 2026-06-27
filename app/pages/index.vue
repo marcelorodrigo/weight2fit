@@ -4,6 +4,23 @@ usePageSeo({
   description: 'Import body composition data into any device that supports FIT files. Generate FIT-format files from your metrics instantly.',
   ogDescription: 'Generate Weight Scale FIT files from your body composition data. Import metrics into any FIT-compatible device or fitness app.'
 })
+
+useSchemaOrg([
+  defineWebSite({
+    name: 'Weight 2 FIT',
+    url: 'https://weight2fit.marcelorodrigo.com'
+  }),
+  defineWebPage({
+    name: 'Weight 2 FIT - Generate Weight Scale FIT Files',
+    description: 'Import body composition data into any device that supports FIT files. Generate FIT-format files from your metrics instantly.'
+  }),
+  defineOrganization({
+    name: 'Weight 2 FIT',
+    url: 'https://weight2fit.marcelorodrigo.com',
+    logo: 'https://weight2fit.marcelorodrigo.com/favicon.svg',
+    sameAs: ['https://github.com/marcelorodrigo/weight2fit']
+  })
+])
 </script>
 
 <template>
