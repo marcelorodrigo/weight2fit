@@ -11,6 +11,7 @@
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
+    "@garmin/fitsdk": "^21.208.0",
     "@iconify-json/lucide": "^1.2.114",
     "@iconify-json/simple-icons": "^1.2.86",
     "@nuxt/ui": "^4.9.0",

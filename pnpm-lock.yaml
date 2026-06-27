@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@garmin/fitsdk':
+        specifier: ^21.208.0
+        version: 21.208.0
       '@iconify-json/lucide':
         specifier: ^1.2.114
         version: 1.2.114
@@ -682,6 +685,9 @@ packages:
 
   '@floating-ui/vue@1.1.11':
     resolution: {integrity: sha512-HzHKCNVxnGS35r9fCHBc3+uCnjw9IWIlCPL683cGgM9Kgj2BiAl8x1mS7vtvP6F9S/e/q4O6MApwSHj8hNLGfw==}
+
+  '@garmin/fitsdk@21.208.0':
+    resolution: {integrity: sha512-mEmPHyzqaS3bb8n+yaOmgmBo/0CUrsLsN5J4viAUN5Kh6+YiwdvPh5OAzb2Jgy2IaI23q7mGtNr/8WRJC1+HoA==}
 
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
@@ -6673,6 +6679,8 @@ snapshots:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
+
+  '@garmin/fitsdk@21.208.0': {}
 
   '@humanfs/core@0.19.2':
     dependencies:
