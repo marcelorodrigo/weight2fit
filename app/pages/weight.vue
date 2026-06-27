@@ -81,7 +81,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
   <div>
     <UPageHero
       title="Weight Scale FIT Generator"
-      description="Generate a Garmin Weight Scale FIT file from body composition data. Fill in your metrics and download a .fit file ready to import into Garmin Connect."
+      description="Generate a Weight Scale FIT file from body composition data. Fill in your metrics and download a .fit file ready to import into any device that supports FIT files."
     />
 
     <UForm

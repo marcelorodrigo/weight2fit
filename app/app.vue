@@ -11,8 +11,8 @@ useHead({
   }
 })
 
-const title = 'Garmin Tools'
-const description = 'Handy utilities for Garmin device data. Generate Weight Scale FIT files, convert, and analyze.'
+const title = 'Weight 2 FIT'
+const description = 'Generate Weight Scale FIT files from your body composition data.'
 
 useSeoMeta({
   title,
@@ -44,6 +44,12 @@ useSeoMeta({
           }, {
             label: 'Weight Tool',
             to: '/weight'
+          }, {
+            label: 'Fields',
+            to: '/fields'
+          }, {
+            label: 'About',
+            to: '/about'
           }]"
           variant="link"
           color="neutral"
@@ -54,7 +60,7 @@ useSeoMeta({
         <UColorModeButton />
 
         <UButton
-          to="https://github.com/marcelorodrigo/garmin-tools"
+          to="https://github.com/marcelorodrigo/weight2fit"
           target="_blank"
           icon="i-simple-icons-github"
           aria-label="GitHub"
@@ -71,13 +77,13 @@ useSeoMeta({
     <UFooter>
       <template #left>
         <p class="text-sm text-(--ui-text-muted)">
-          © {{ new Date().getFullYear() }} Garmin Tools
+          © {{ new Date().getFullYear() }} Weight 2 FIT
         </p>
       </template>
 
       <template #right>
         <UButton
-          to="https://github.com/marcelorodrigo/garmin-tools"
+          to="https://github.com/marcelorodrigo/weight2fit"
           target="_blank"
           icon="i-simple-icons-github"
           aria-label="GitHub"

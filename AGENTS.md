@@ -1,4 +1,4 @@
-# Garmin Tools
+# Weight 2 FIT
 
 ## Tech Stack
 
