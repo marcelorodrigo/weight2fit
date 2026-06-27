@@ -25,9 +25,9 @@ export interface FormFieldSchema {
   unit?: string
   minimum?: number
   maximum?: number
-  exclusiveMinimum?: boolean
-  exclusiveMaximum?: boolean
-  step?: number
+  exclusiveMinimum?: number
+  exclusiveMaximum?: number
+  multipleOf?: number
   example?: number
   section: 'basic' | 'composition' | 'metabolic' | 'ratings'
 }
@@ -82,9 +82,8 @@ export const weightFormSchema: FormSchema = {
       required: true,
       description: 'Body weight in kilograms. Required field.',
       unit: 'kg',
-      minimum: 0,
-      exclusiveMinimum: true,
-      step: 0.1,
+      exclusiveMinimum: 0,
+      multipleOf: 0.1,
       example: 75.5,
       section: 'basic'
     },
@@ -95,9 +94,8 @@ export const weightFormSchema: FormSchema = {
       required: false,
       description: 'Body mass index calculated as weight (kg) / height² (m²)',
       unit: 'kg/m²',
-      minimum: 0,
-      exclusiveMinimum: true,
-      step: 0.1,
+      exclusiveMinimum: 0,
+      multipleOf: 0.1,
       example: 23.5,
       section: 'basic'
     },
@@ -110,7 +108,7 @@ export const weightFormSchema: FormSchema = {
       unit: '%',
       minimum: 0,
       maximum: 100,
-      step: 0.1,
+      multipleOf: 0.1,
       example: 18.5,
       section: 'composition'
     },
@@ -123,7 +121,7 @@ export const weightFormSchema: FormSchema = {
       unit: '%',
       minimum: 0,
       maximum: 100,
-      step: 0.1,
+      multipleOf: 0.1,
       example: 55,
       section: 'composition'
     },
@@ -135,7 +133,7 @@ export const weightFormSchema: FormSchema = {
       description: 'Mass of visceral fat (fat around organs) in kilograms',
       unit: 'kg',
       minimum: 0,
-      step: 0.1,
+      multipleOf: 0.1,
       example: 3.2,
       section: 'composition'
     },
@@ -147,7 +145,7 @@ export const weightFormSchema: FormSchema = {
       description: 'Total bone mass in kilograms',
       unit: 'kg',
       minimum: 0,
-      step: 0.1,
+      multipleOf: 0.1,
       example: 2.8,
       section: 'composition'
     },
@@ -159,7 +157,7 @@ export const weightFormSchema: FormSchema = {
       description: 'Total muscle mass in kilograms',
       unit: 'kg',
       minimum: 0,
-      step: 0.1,
+      multipleOf: 0.1,
       example: 35,
       section: 'composition'
     },
@@ -171,7 +169,7 @@ export const weightFormSchema: FormSchema = {
       description: 'Energy expenditure at rest in kilocalories per day',
       unit: 'kcal/day',
       minimum: 0,
-      step: 1,
+      multipleOf: 1,
       example: 1700,
       section: 'metabolic'
     },
@@ -183,7 +181,7 @@ export const weightFormSchema: FormSchema = {
       description: 'Energy expenditure with activity in kilocalories per day',
       unit: 'kcal/day',
       minimum: 0,
-      step: 1,
+      multipleOf: 1,
       example: 2100,
       section: 'metabolic'
     },
@@ -195,7 +193,7 @@ export const weightFormSchema: FormSchema = {
       description: 'Biological age estimate based on metabolic rate in years',
       unit: 'years',
       minimum: 1,
-      step: 1,
+      multipleOf: 1,
       example: 30,
       section: 'metabolic'
     },
@@ -207,7 +205,7 @@ export const weightFormSchema: FormSchema = {
       description: 'Subjective physique rating from 1 (obese) to 9 (very lean)',
       minimum: 1,
       maximum: 9,
-      step: 1,
+      multipleOf: 1,
       example: 7,
       section: 'ratings'
     },
@@ -219,7 +217,7 @@ export const weightFormSchema: FormSchema = {
       description: 'Subjective visceral fat rating from 1 (high) to 9 (low)',
       minimum: 1,
       maximum: 9,
-      step: 1,
+      multipleOf: 1,
       example: 3,
       section: 'ratings'
     }

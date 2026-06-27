@@ -138,22 +138,34 @@ const schema = useWeightFitSchema()
                     class="col-span-1"
                   >
                     <span class="font-semibold">Min:</span>
-                    <span v-if="field.exclusiveMinimum"> &gt; {{ field.minimum }}</span>
-                    <span v-else> ≥ {{ field.minimum }}</span>
+                    <span> ≥ {{ field.minimum }}</span>
+                  </div>
+                  <div
+                    v-if="field.exclusiveMinimum !== undefined"
+                    class="col-span-1"
+                  >
+                    <span class="font-semibold">Exclusive Min:</span>
+                    <span> &gt; {{ field.exclusiveMinimum }}</span>
                   </div>
                   <div
                     v-if="field.maximum !== undefined"
                     class="col-span-1"
                   >
                     <span class="font-semibold">Max:</span>
-                    <span v-if="field.exclusiveMaximum"> &lt; {{ field.maximum }}</span>
-                    <span v-else> ≤ {{ field.maximum }}</span>
+                    <span> ≤ {{ field.maximum }}</span>
                   </div>
                   <div
-                    v-if="field.step !== undefined"
+                    v-if="field.exclusiveMaximum !== undefined"
+                    class="col-span-1"
+                  >
+                    <span class="font-semibold">Exclusive Max:</span>
+                    <span> &lt; {{ field.exclusiveMaximum }}</span>
+                  </div>
+                  <div
+                    v-if="field.multipleOf !== undefined"
                     class="col-span-2"
                   >
-                    <span class="font-semibold">Step:</span> {{ field.step }}
+                    <span class="font-semibold">Multiple of:</span> {{ field.multipleOf }}
                   </div>
                 </div>
 

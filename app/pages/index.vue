@@ -5,10 +5,13 @@ usePageSeo({
   ogDescription: 'Generate Weight Scale FIT files from your body composition data. Import metrics into any FIT-compatible device or fitness app.'
 })
 
+const siteConfig = useSiteConfig()
+const siteUrl = siteConfig.url
+
 useSchemaOrg([
   defineWebSite({
     name: 'Weight 2 FIT',
-    url: 'https://weight2fit.marcelorodrigo.com'
+    url: siteUrl
   }),
   defineWebPage({
     name: 'Weight 2 FIT - Generate Weight Scale FIT Files',
@@ -16,8 +19,8 @@ useSchemaOrg([
   }),
   defineOrganization({
     name: 'Weight 2 FIT',
-    url: 'https://weight2fit.marcelorodrigo.com',
-    logo: 'https://weight2fit.marcelorodrigo.com/favicon.svg',
+    url: siteUrl,
+    logo: `${siteUrl}/favicon.svg`,
     sameAs: ['https://github.com/marcelorodrigo/weight2fit']
   })
 ])

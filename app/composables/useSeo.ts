@@ -9,9 +9,9 @@ export interface PageSeoMeta {
 }
 
 export function usePageSeo(meta: PageSeoMeta) {
-  const config = useAppConfig()
+  const siteConfig = useSiteConfig()
 
-  const siteUrl = config.seo.siteUrl
+  const siteUrl = siteConfig.url
   const canonicalUrl = meta.canonicalUrl || `${siteUrl}${useRoute().path}`
 
   useSeoMeta({

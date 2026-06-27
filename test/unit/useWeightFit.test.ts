@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Decoder, Stream } from '@garmin/fitsdk'
 import { useWeightFit, useWeightFitSchema } from '../../app/composables/useWeightFit'
+import publishedSchema from '../../public/weight-form-schema.json'
 
 describe('useWeightFit', () => {
   describe('encode', () => {
@@ -211,18 +212,58 @@ describe('useWeightFit', () => {
     it('has appropriate constraints for weight field', () => {
       const schema = useWeightFitSchema()
       const weightField = schema.fields.find(f => f.name === 'weight')
-      expect(weightField?.minimum).toBe(0)
-      expect(weightField?.exclusiveMinimum).toBe(true)
+      expect(weightField?.exclusiveMinimum).toBe(0)
     })
 
     it('includes step size for numeric fields', () => {
       const schema = useWeightFitSchema()
-      const fieldsWithStep = ['weight', 'bmi', 'percentFat', 'percentHydration', 'visceralFatMass', 'boneMass', 'muscleMass']
-      fieldsWithStep.forEach((fieldName) => {
+      const fieldsWithMultipleOf = ['weight', 'bmi', 'percentFat', 'percentHydration', 'visceralFatMass', 'boneMass', 'muscleMass', 'basalMet', 'activeMet', 'metabolicAge', 'physiqueRating', 'visceralFatRating']
+      fieldsWithMultipleOf.forEach((fieldName) => {
         const field = schema.fields.find(f => f.name === fieldName)
-        expect(field?.step).toBeDefined()
-        expect(field?.step).toBeGreaterThan(0)
+        expect(field?.multipleOf).toBeDefined()
+        expect(field?.multipleOf).toBeGreaterThan(0)
       })
+    })
+
+    it('published artifact matches useWeightFitSchema contract', () => {
+      const schema = useWeightFitSchema()
+
+      // Check title and description match
+      expect(publishedSchema.title).toBe(schema.title)
+      expect(publishedSchema.description).toBe(schema.description)
+
+      // Check all field names are present in published schema
+      const publishedFieldNames = Object.keys(publishedSchema.properties || {})
+      const schemaFieldNames = schema.fields.map(f => f.name)
+      expect(publishedFieldNames.sort()).toEqual(schemaFieldNames.sort())
+
+      // Check each field contract matches
+      schema.fields.forEach((field) => {
+        const publishedField = publishedSchema.properties?.[field.name]
+        expect(publishedField).toBeDefined()
+        expect(publishedField.type).toBe(field.type)
+        expect(publishedField.title).toBe(field.label)
+        expect(publishedField.description).toBe(field.description)
+        if (field.unit) {
+          expect(publishedField.unit).toBe(field.unit)
+        }
+        if (field.minimum !== undefined) {
+          expect(publishedField.minimum).toBe(field.minimum)
+        }
+        if (field.maximum !== undefined) {
+          expect(publishedField.maximum).toBe(field.maximum)
+        }
+        if (field.multipleOf !== undefined) {
+          expect(publishedField.multipleOf).toBe(field.multipleOf)
+        }
+        if (field.example !== undefined) {
+          expect(publishedField.example).toBe(field.example)
+        }
+      })
+
+      // Check required fields match
+      const requiredFields = schema.fields.filter(f => f.required).map(f => f.name)
+      expect(publishedSchema.required).toEqual(requiredFields)
     })
   })
 })

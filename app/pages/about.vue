@@ -29,7 +29,7 @@ useSchemaOrg([
           </h2>
         </template>
         <p class="text-sm leading-relaxed">
-          Most third-party sync tools for body scales and Garmin Connect either require you to disable two-factor authentication or relay your health data through their own servers. Garmin Connect in other hand allows you to import FIT files that might contain body weight composition information into your platform.
+          Most third-party sync tools for body scales and Garmin Connect either require you to disable two-factor authentication or relay your health data through their own servers. Garmin Connect on the other hand allows you to import FIT files that contain body weight composition information into your platform.
         </p>
       </UCard>
 
@@ -43,7 +43,7 @@ useSchemaOrg([
           Weight2Fit generates a standard Garmin FIT weight-scale file <strong>directly in your browser</strong>. Your data never leaves your device, and you maintain complete control over your privacy and security.
         </p>
         <p class="text-sm leading-relaxed mt-3">
-          You just need to manually type in your measurements, download the file, and import it into Garmin Connect. That's a small price for security and privacy.
+          You just need to manually type in your measurements, download the file, and import it into Garmin Connect. That's a small price to pay for security and privacy.
         </p>
       </UCard>
 
@@ -59,7 +59,7 @@ useSchemaOrg([
               1. Enter your data
             </p>
             <p class="leading-relaxed">
-              Body composition measurements from your Renpho scale. Weight is required; body fat %, bone mass, muscle mass, body water %, visceral fat rating, and metabolic age are optional.
+              Body composition measurements from your scale. Weight is required; body fat %, bone mass, muscle mass, body water %, visceral fat rating, and metabolic age are optional.
             </p>
           </div>
           <div>
