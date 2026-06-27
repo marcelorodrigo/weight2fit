@@ -1,31 +1,71 @@
 <template>
-  <div>
+  <div class="flex flex-col items-center">
     <UPageHero
       title="About Weight 2 FIT"
-      description="A lightweight tool for generating FIT format files from body composition data."
+      description="A privacy-first tool to import body composition measurements from any source into Garmin Connect, without compromising your account security or sharing data with third-party servers."
+      class="w-full"
     />
 
     <UPageSection class="max-w-3xl space-y-8">
       <UCard>
         <template #header>
           <h2 class="text-lg font-semibold">
-            What is Weight 2 FIT?
+            The Problem
           </h2>
         </template>
         <p class="text-sm leading-relaxed">
-          Weight 2 FIT is a tool that lets you generate FIT format files from body composition data. The FIT file format is a standard used by fitness devices and apps to store workout and body metrics data. This tool allows you to create compatible FIT files so you can import body composition measurements into any device or application that supports the FIT format.
+          Most third-party sync tools for body scales and Garmin Connect either require you to disable two-factor authentication or relay your health data through their own servers. Garmin Connect in other hand allows you to import FIT files that might contain body weight composition information into your platform.
         </p>
       </UCard>
 
       <UCard>
         <template #header>
           <h2 class="text-lg font-semibold">
-            Why FIT Format?
+            The Solution
           </h2>
         </template>
         <p class="text-sm leading-relaxed">
-          The FIT (Flexible and Interoperable Data Transfer) format is an open standard that allows fitness devices from different manufacturers to share data. By generating FIT files with your body composition metrics, you gain the flexibility to use them across multiple devices and platforms without being locked into a single ecosystem.
+          Weight2Fit generates a standard Garmin FIT weight-scale file <strong>directly in your browser</strong>. Your data never leaves your device, and you maintain complete control over your privacy and security.
         </p>
+        <p class="text-sm leading-relaxed mt-3">
+          You just need to manually type in your measurements, download the file, and import it into Garmin Connect. That's a small price for security and privacy.
+        </p>
+      </UCard>
+
+      <UCard>
+        <template #header>
+          <h2 class="text-lg font-semibold">
+            How It Works
+          </h2>
+        </template>
+        <div class="space-y-3 text-sm">
+          <div>
+            <p class="font-semibold leading-relaxed">1. Enter your data</p>
+            <p class="leading-relaxed">Body composition measurements from your Renpho scale. Weight is required; body fat %, bone mass, muscle mass, body water %, visceral fat rating, and metabolic age are optional.</p>
+          </div>
+          <div>
+            <p class="font-semibold leading-relaxed">2. Generate & download</p>
+            <p class="leading-relaxed">The app encodes your data into a standard Garmin FIT weight-scale file using the official Garmin JavaScript FIT SDK, running entirely in your browser.</p>
+          </div>
+          <div>
+            <p class="font-semibold leading-relaxed">3. Import into Garmin Connect</p>
+            <p class="leading-relaxed">Go to <ULink to="https://connect.garmin.com" target="_blank">connect.garmin.com</ULink>, navigate to <strong>Health Stats → Body Composition</strong>, and use the import button to upload the <code class="bg-gray-100 px-1 rounded">.fit</code> file.</p>
+          </div>
+        </div>
+      </UCard>
+
+      <UCard>
+        <template #header>
+          <h2 class="text-lg font-semibold">
+            Why This Approach?
+          </h2>
+        </template>
+        <div class="space-y-2 text-sm">
+          <p class="leading-relaxed"><strong>Your data stays on your device</strong> — No third-party servers, no data relay</p>
+          <p class="leading-relaxed"><strong>100% client-side</strong> — Powered by the official Garmin FIT SDK</p>
+          <p class="leading-relaxed"><strong>Standard format</strong> — Creates legitimate Garmin FIT files compatible with all Garmin services</p>
+          <p class="leading-relaxed"><strong>No account compromise</strong> — You control when and what gets imported</p>
+        </div>
       </UCard>
 
       <UCard>
@@ -42,7 +82,7 @@
             "Garmin" and related trademarks are the property of Garmin Ltd. This tool generates standard FIT format files that can be imported into compatible devices and applications.
           </p>
           <p class="leading-relaxed">
-            The FIT SDK library used by this tool is provided by Garmin Ltd. under its own license. For more details, see the project repository on GitHub.
+            The FIT SDK library used by this tool is provided by Garmin Ltd. under its own license.
           </p>
         </div>
       </UCard>
