@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: process.env.CF_PAGES_URL || 'http://localhost:3000'
+    ...(process.env.CF_PAGES_URL && { url: process.env.CF_PAGES_URL })
   },
 
   css: ['~/assets/css/main.css'],
