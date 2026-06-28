@@ -82,7 +82,7 @@ describe('useFitViewer', () => {
   describe('clear', () => {
     it('resets all state', async () => {
       const mockDecoder = {
-        read: vi.fn().mockResolvedValue({
+        read: vi.fn().mockReturnValue({
           messages: { fileIdMesgs: [{ timestamp: new Date(), manufacturer: 'garmin' }] },
           profileVersion: { major: 21, minor: 100, patch: 0, type: 'Release' },
           errors: []
@@ -211,7 +211,9 @@ describe('useFitViewer - decode with mocked SDK', () => {
   })
 
   it('handles SDK throwing exception', async () => {
-    mockDecoder.read.mockRejectedValue(new Error('Unexpected SDK error'))
+    mockDecoder.read.mockImplementation(() => {
+      throw new Error('Unexpected SDK error')
+    })
 
     const validFile = new File([new ArrayBuffer(100)], 'test.fit', { type: 'application/octet-stream' })
     await compose.decode(validFile)

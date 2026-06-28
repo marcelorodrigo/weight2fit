@@ -10,23 +10,40 @@ const props = defineProps<Props>()
 
 const fieldNames = computed(() => {
   const names = new Set<string>()
+  let hasTimestamp = false
   for (const msg of props.messages) {
     for (const field of msg.fields) {
       names.add(field.name)
     }
+    if (msg.timestamp) hasTimestamp = true
+    if (msg.developerFields) {
+      for (const key of Object.keys(msg.developerFields)) {
+        names.add(key)
+      }
+    }
   }
-  return [...names]
+  const ordered = [...names]
+  if (hasTimestamp) ordered.unshift('timestamp')
+  return ordered
 })
 
 const fieldHeaders = computed(() => {
   const map = new Map<string, string>()
+  let hasTimestamp = false
   for (const msg of props.messages) {
     for (const field of msg.fields) {
       if (!map.has(field.name)) {
         map.set(field.name, field.unit ? `${field.name} (${field.unit})` : field.name)
       }
     }
+    if (msg.timestamp) hasTimestamp = true
+    if (msg.developerFields) {
+      for (const key of Object.keys(msg.developerFields)) {
+        if (!map.has(key)) map.set(key, key)
+      }
+    }
   }
+  if (hasTimestamp) map.set('timestamp', 'Timestamp')
   return map
 })
 
@@ -40,8 +57,16 @@ const columns = computed(() => {
 const data = computed(() => {
   return props.messages.map((msg) => {
     const row: Record<string, string> = {}
+    if (msg.timestamp) {
+      row.timestamp = formatCellValue(msg.timestamp)
+    }
     for (const field of msg.fields) {
       row[field.name] = formatCellValue(field.value)
+    }
+    if (msg.developerFields) {
+      for (const [key, value] of Object.entries(msg.developerFields)) {
+        row[key] = formatCellValue(value)
+      }
     }
     return row
   })

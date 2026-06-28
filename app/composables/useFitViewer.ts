@@ -195,7 +195,7 @@ function formatBytes(bytes: number): string {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`
 }
 
-async function decodeFile(file: File): Promise<FitDecodeResult> {
+async function decodeFile(file: File): Promise<FitDecodeResult | null> {
   state.isLoading = true
   state.error = null
   state.file = file
@@ -204,13 +204,13 @@ async function decodeFile(file: File): Promise<FitDecodeResult> {
     if (!file.name.toLowerCase().endsWith('.fit')) {
       state.error = new FitViewerError(FIT_VIEWER_ERROR_MESSAGES.INVALID_FILE_TYPE, 'INVALID_FILE_TYPE')
       state.isLoading = false
-      return createEmptyResult()
+      return null
     }
 
     if (file.size === 0) {
       state.error = new FitViewerError(FIT_VIEWER_ERROR_MESSAGES.EMPTY_FILE, 'EMPTY_FILE')
       state.isLoading = false
-      return createEmptyResult()
+      return null
     }
 
     if (file.size > MAX_FILE_SIZE) {
@@ -219,7 +219,7 @@ async function decodeFile(file: File): Promise<FitDecodeResult> {
         'INVALID_FILE_TYPE'
       )
       state.isLoading = false
-      return createEmptyResult()
+      return null
     }
 
     const arrayBuffer = await file.arrayBuffer()
@@ -229,7 +229,7 @@ async function decodeFile(file: File): Promise<FitDecodeResult> {
     if (!decoder.isFIT()) {
       state.error = new FitViewerError(FIT_VIEWER_ERROR_MESSAGES.NOT_FIT_FILE, 'NOT_FIT_FILE')
       state.isLoading = false
-      return createEmptyResult()
+      return null
     }
 
     const decoded = decoder.read({
@@ -273,16 +273,7 @@ async function decodeFile(file: File): Promise<FitDecodeResult> {
       error instanceof Error ? error : undefined
     )
     state.isLoading = false
-    return createEmptyResult()
-  }
-}
-
-function createEmptyResult(): FitDecodeResult {
-  return {
-    messages: [],
-    profileVersion: null,
-    errors: [],
-    messageTypes: []
+    return null
   }
 }
 
@@ -318,7 +309,7 @@ export function useFitViewer() {
 
     try {
       const decodeResult = await decodeFile(file)
-      state.result = decodeResult
+      if (decodeResult) state.result = decodeResult
     } catch (err) {
       if (err instanceof FitViewerError) {
         state.error = err

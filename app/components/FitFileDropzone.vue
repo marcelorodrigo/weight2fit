@@ -1,8 +1,16 @@
 <script setup lang="ts">
+interface Props {
+  disabled?: boolean
+}
+
 interface Emits {
   'file-selected': [file: File]
   'error': [message: string]
 }
+
+const props = withDefaults(defineProps<Props>(), {
+  disabled: false
+})
 
 const emit = defineEmits<Emits>()
 
@@ -22,6 +30,7 @@ function validateFile(file: File): string | null {
 }
 
 function handleFileSelect(file: File) {
+  if (props.disabled) return
   const error = validateFile(file)
   if (error) {
     emit('error', error)
@@ -31,6 +40,7 @@ function handleFileSelect(file: File) {
 }
 
 function onFileChange(event: Event) {
+  if (props.disabled) return
   const input = event.target as HTMLInputElement
   const file = input.files?.[0]
   if (!file) return
@@ -39,18 +49,21 @@ function onFileChange(event: Event) {
 }
 
 function onDragOver(event: DragEvent) {
+  if (props.disabled) return
   event.preventDefault()
   event.stopPropagation()
   isDragging.value = true
 }
 
 function onDragLeave(event: DragEvent) {
+  if (props.disabled) return
   event.preventDefault()
   event.stopPropagation()
   isDragging.value = false
 }
 
 function onDrop(event: DragEvent) {
+  if (props.disabled) return
   event.preventDefault()
   event.stopPropagation()
   isDragging.value = false
@@ -62,6 +75,7 @@ function onDrop(event: DragEvent) {
 }
 
 function triggerFileInput() {
+  if (props.disabled) return
   fileInputRef.value?.click()
 }
 </script>
@@ -81,7 +95,9 @@ function triggerFileInput() {
       ref="fileInputRef"
       type="file"
       accept=".fit"
-      class="absolute inset-0 opacity-0 cursor-pointer"
+      :disabled="props.disabled"
+      class="absolute inset-0 opacity-0"
+      :class="props.disabled ? 'cursor-not-allowed' : 'cursor-pointer'"
       @change="onFileChange"
       @click.stop
     >

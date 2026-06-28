@@ -16,23 +16,31 @@ interface TabItem {
   typeName: string
 }
 
+const messagesByType = computed(() => {
+  const map = new Map<string, FitMessage[]>()
+  if (!props.result) return map
+  for (const msg of props.result.messages) {
+    const list = map.get(msg.typeKey)
+    if (list) list.push(msg)
+    else map.set(msg.typeKey, [msg])
+  }
+  return map
+})
+
 const messageGroups = computed(() => {
   if (!props.result) return []
 
-  const groups: Record<string, FitMessage[]> = {}
-  for (const msg of props.result.messages) {
-    if (!groups[msg.typeKey]) groups[msg.typeKey] = []
-    groups[msg.typeKey]!.push(msg)
-  }
-
-  return Object.entries(groups).map(([typeKey, messages]) => ({
-    value: typeKey,
-    label: formatTypeName(typeKey),
-    typeKey,
-    typeName: messages[0]?.type || typeKey,
-    count: messages.length,
-    messages
-  }))
+  return props.result.messageTypes.map((typeKey) => {
+    const messages = messagesByType.value.get(typeKey) ?? []
+    return {
+      value: typeKey,
+      label: formatTypeName(typeKey),
+      typeKey,
+      typeName: messages[0]?.type || typeKey,
+      count: messages.length,
+      messages
+    }
+  }).filter(g => g.count > 0)
 })
 
 const activeTab = ref<string | undefined>(undefined)
