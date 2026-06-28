@@ -53,6 +53,9 @@ useSeoMeta({
             label: 'Weight Tool',
             to: '/weight'
           }, {
+            label: 'FIT Viewer',
+            to: '/viewer'
+          }, {
             label: 'Fields',
             to: '/fields'
           }, {
