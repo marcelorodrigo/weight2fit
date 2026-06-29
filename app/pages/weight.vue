@@ -80,7 +80,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `weight-${new Date().toISOString().slice(0, 10)}.fit`
+    a.download = getFitFilename()
     a.click()
     setTimeout(() => URL.revokeObjectURL(url), 10000)
     toast.add({ title: 'FIT file downloaded', color: 'success' })

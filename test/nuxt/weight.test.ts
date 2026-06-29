@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 
 function flushPromises() {
@@ -32,6 +32,26 @@ describe('weight page', () => {
     const page = await mountPage()
 
     expect(page.text()).toContain('Weight Scale FIT Generator')
+  })
+
+  describe('download', () => {
+    it('generates a unique filename with timestamp', async () => {
+      URL.createObjectURL = vi.fn().mockReturnValue('blob:mock')
+      const createElementSpy = vi.spyOn(document, 'createElement')
+
+      const page = await mountPage()
+      await setField(page, 0, '75')
+      await page.find('form').trigger('submit')
+      await flushPromises()
+
+      const anchorCalls = createElementSpy.mock.results
+        .filter(r => r.value.tagName === 'A')
+        .map(r => r.value as HTMLAnchorElement)
+
+      const lastAnchor = anchorCalls.at(-1)
+      expect(lastAnchor).toBeDefined()
+      expect(lastAnchor!.download).toMatch(/^weight-\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.fit$/)
+    })
   })
 
   describe('validation', () => {
