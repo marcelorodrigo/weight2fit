@@ -145,8 +145,8 @@ export const weightFormSchema: FormSchema = {
       description: 'Total bone mass in kilograms',
       unit: 'kg',
       minimum: 0,
-      multipleOf: 0.1,
-      example: 2.8,
+      multipleOf: 0.01,
+      example: 2.83,
       section: 'composition'
     },
     {
@@ -157,8 +157,8 @@ export const weightFormSchema: FormSchema = {
       description: 'Total muscle mass in kilograms',
       unit: 'kg',
       minimum: 0,
-      multipleOf: 0.1,
-      example: 35,
+      multipleOf: 0.01,
+      example: 35.5,
       section: 'composition'
     },
     {

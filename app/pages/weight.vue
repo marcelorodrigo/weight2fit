@@ -209,7 +209,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
               v-model="state.boneMass"
               name="boneMass"
               :min="0"
-              :step="0.1"
+              :step="0.01"
               placeholder="kg"
             />
           </UFormField>
@@ -223,7 +223,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
               v-model="state.muscleMass"
               name="muscleMass"
               :min="0"
-              :step="0.1"
+              :step="0.01"
               placeholder="kg"
             />
           </UFormField>
