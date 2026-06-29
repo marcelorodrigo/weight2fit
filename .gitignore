@@ -1,3 +1,6 @@
+# Test coverage reports
+coverage
+
 # Nuxt dev/build outputs
 .output
 .data
