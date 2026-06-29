@@ -58,8 +58,8 @@
       "description": "Total bone mass in kilograms",
       "unit": "kg",
       "minimum": 0,
-      "multipleOf": 0.1,
-      "example": 2.8
+      "multipleOf": 0.01,
+      "example": 2.83
     },
     "muscleMass": {
       "type": "number",
@@ -67,8 +67,8 @@
       "description": "Total muscle mass in kilograms",
       "unit": "kg",
       "minimum": 0,
-      "multipleOf": 0.1,
-      "example": 35
+      "multipleOf": 0.01,
+      "example": 35.5
     },
     "basalMet": {
       "type": "number",
