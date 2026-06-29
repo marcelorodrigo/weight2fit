@@ -19,7 +19,7 @@
     "@iconify-json/simple-icons": "^1.2.86",
     "@nuxt/ui": "^4.9.0",
     "@nuxtjs/seo": "5.3.1",
-    "@takumi-rs/core": "2.0.0-beta.13",
+    "@takumi-rs/core": "2.0.0-rc.1",
     "nuxt": "^4.4.8",
     "tailwindcss": "^4.3.1"
   },
