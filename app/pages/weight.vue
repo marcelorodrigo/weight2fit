@@ -18,6 +18,28 @@ useSchemaOrg([
 const toast = useToast()
 const state = reactive<Partial<WeightFormState>>({})
 
+const { savedEntry, hasSavedData, save: savePersistence, restore: restorePersistence, clear: clearPersistence } = useWeightFormPersistence()
+const showPrompt = ref(false)
+
+onMounted(() => {
+  if (hasSavedData.value) {
+    showPrompt.value = true
+  }
+})
+
+function onRestore() {
+  const data = restorePersistence()
+  if (data) {
+    Object.assign(state, data)
+  }
+  showPrompt.value = false
+}
+
+function onDismiss() {
+  clearPersistence()
+  showPrompt.value = false
+}
+
 function validate(state: Partial<WeightFormState>): FormError[] {
   const errors: FormError[] = []
 
@@ -83,6 +105,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
     a.download = getFitFilename()
     a.click()
     setTimeout(() => URL.revokeObjectURL(url), 10000)
+    savePersistence(event.data)
     toast.add({ title: 'FIT file downloaded', color: 'success' })
   } catch {
     toast.add({ title: 'Failed to generate FIT file', color: 'error' })
@@ -103,6 +126,22 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
       class="max-w-2xl mx-auto space-y-6 p-6"
       @submit="onSubmit"
     >
+      <UAlert
+        v-if="showPrompt"
+        icon="i-lucide-history"
+        title="Restore previous data?"
+        :description="`Last saved: ${savedEntry ? formatTimeAgo(savedEntry.savedAt) : ''}`"
+        color="primary"
+        variant="subtle"
+        orientation="horizontal"
+        close
+        :actions="[
+          { label: 'Restore', color: 'primary', onClick: onRestore },
+          { label: 'Start Fresh', color: 'neutral', variant: 'outline', onClick: onDismiss }
+        ]"
+        @update:open="onDismiss"
+      />
+
       <UCard
         class="border-t-2"
         :style="{ borderTopColor: 'var(--ui-primary)' }"

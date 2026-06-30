@@ -1,5 +1,22 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
+
+const { mockRef } = vi.hoisted(() => {
+  let value: Record<string, unknown> | null = null
+  const ref = {
+    get value() { return value },
+    set value(v: Record<string, unknown> | null) { value = v }
+  }
+  return { mockRef: ref }
+})
+
+vi.mock('@vueuse/core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@vueuse/core')>()
+  return {
+    ...actual,
+    useLocalStorage: vi.fn(() => mockRef)
+  }
+})
 
 function flushPromises() {
   return new Promise(resolve => setTimeout(resolve, 0))
@@ -11,6 +28,10 @@ async function mountPage() {
 }
 
 describe('weight page', () => {
+  beforeEach(() => {
+    mockRef.value = null
+  })
+
   it('renders all four section cards', async () => {
     const page = await mountPage()
 
@@ -84,6 +105,31 @@ describe('weight page', () => {
       expect(page.text()).not.toContain('Weight is required')
       expect(page.text()).not.toContain('must be')
     })
+  })
+})
+
+describe('persistence', () => {
+  beforeEach(() => {
+    mockRef.value = null
+    URL.createObjectURL = vi.fn().mockReturnValue('blob:mock')
+  })
+
+  it('shows restore prompt when no saved data', async () => {
+    const page = await mountPage()
+    await flushPromises()
+
+    expect(page.text()).not.toContain('Restore previous data?')
+  })
+
+  it('saves form data on successful submit', async () => {
+    const page = await mountPage()
+    await flushPromises()
+
+    await setField(page, 0, '82')
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(page.text()).not.toContain('error')
   })
 })
 
