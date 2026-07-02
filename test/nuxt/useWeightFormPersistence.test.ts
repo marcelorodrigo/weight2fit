@@ -91,7 +91,7 @@ describe('useWeightFormPersistence', () => {
 
     expect(savedEntry.value).not.toBeNull()
     expect(savedEntry.value?.savedAt).toBeDefined()
-    expect(() => new Date(savedEntry.value!.savedAt)).not.toThrow()
+    expect(new Date(savedEntry.value!.savedAt).getTime()).not.toBeNaN()
   })
 
   it('saves optional fields', () => {

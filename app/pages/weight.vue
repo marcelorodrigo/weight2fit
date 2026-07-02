@@ -139,7 +139,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
           { label: 'Restore', color: 'primary', onClick: onRestore },
           { label: 'Start Fresh', color: 'neutral', variant: 'outline', onClick: onDismiss }
         ]"
-        @update:open="onDismiss"
+        @update:open="showPrompt = false"
       />
 
       <UCard

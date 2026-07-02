@@ -11,7 +11,7 @@ const STORAGE_KEY = 'weight-form-data'
 export function useWeightFormPersistence() {
   const savedEntry = useLocalStorage<SavedWeightEntry | null>(STORAGE_KEY, null)
 
-  const hasSavedData = computed(() => savedEntry.value !== null)
+  const hasSavedData = computed(() => savedEntry.value?.data != null)
 
   function save(data: WeightFormState) {
     savedEntry.value = {
