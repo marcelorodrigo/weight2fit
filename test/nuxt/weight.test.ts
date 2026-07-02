@@ -1,5 +1,20 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
+
+const store = vi.hoisted(() => {
+  const mockRef = { value: null as Record<string, unknown> | null }
+  return { mockRef }
+})
+
+vi.mock('@vueuse/core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@vueuse/core')>()
+  const { ref } = await import('vue')
+  store.mockRef = ref<Record<string, unknown> | null>(null)
+  return {
+    ...actual,
+    useLocalStorage: vi.fn(() => store.mockRef)
+  }
+})
 
 function flushPromises() {
   return new Promise(resolve => setTimeout(resolve, 0))
@@ -11,6 +26,10 @@ async function mountPage() {
 }
 
 describe('weight page', () => {
+  beforeEach(() => {
+    store.mockRef.value = null
+  })
+
   it('renders all four section cards', async () => {
     const page = await mountPage()
 
@@ -84,6 +103,43 @@ describe('weight page', () => {
       expect(page.text()).not.toContain('Weight is required')
       expect(page.text()).not.toContain('must be')
     })
+  })
+})
+
+describe('persistence', () => {
+  beforeEach(() => {
+    store.mockRef.value = null
+    URL.createObjectURL = vi.fn().mockReturnValue('blob:mock')
+  })
+
+  it('shows restore prompt when no saved data', async () => {
+    const page = await mountPage()
+    await flushPromises()
+
+    expect(page.text()).not.toContain('Restore previous data?')
+  })
+
+  it('saves form data on successful submit', async () => {
+    const page = await mountPage()
+    await flushPromises()
+
+    await setField(page, 0, '82')
+    await page.find('form').trigger('submit')
+    await flushPromises()
+
+    expect(store.mockRef.value).not.toBeNull()
+    expect(store.mockRef.value).toHaveProperty('data')
+    expect(store.mockRef.value).toHaveProperty('savedAt')
+  })
+
+  it('shows restore prompt when saved data exists', async () => {
+    const now = new Date().toISOString()
+    store.mockRef.value = { data: { weight: 75.5 }, savedAt: now }
+
+    const page = await mountPage()
+    await flushPromises()
+
+    expect(page.text()).toContain('Restore previous data?')
   })
 })
 
