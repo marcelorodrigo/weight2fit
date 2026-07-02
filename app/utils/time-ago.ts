@@ -1,7 +1,7 @@
 export function formatTimeAgo(date: Date | string): string {
   const now = Date.now()
   const past = typeof date === 'string' ? new Date(date).getTime() : date.getTime()
-  if (isNaN(past)) {
+  if (Number.isNaN(past)) {
     return 'just now'
   }
   const diffMs = now - past
