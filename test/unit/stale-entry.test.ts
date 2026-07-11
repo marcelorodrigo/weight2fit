@@ -12,6 +12,7 @@ describe('isEntryStale', () => {
   })
 
   it('returns false when savedAt equals the threshold exactly', () => {
+    vi.setSystemTime(new Date('2024-06-15T12:00:00Z'))
     const exactly15 = new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString()
     expect(isEntryStale(exactly15, 15)).toBe(false)
   })
