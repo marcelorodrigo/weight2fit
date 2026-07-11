@@ -18,8 +18,12 @@ useSchemaOrg([
 const toast = useToast()
 const state = reactive<Partial<WeightFormState>>({})
 
-const { savedEntry, hasSavedData, save: savePersistence, restore: restorePersistence, clear: clearPersistence } = useWeightFormPersistence()
+const { savedEntry, hasSavedData, save: savePersistence, restore: restorePersistence } = useWeightFormPersistence()
 const showPrompt = ref(false)
+const isStale = computed(() => {
+  const savedAt = savedEntry.value?.savedAt
+  return savedAt != null && isEntryStale(savedAt, 15)
+})
 
 onMounted(() => {
   if (hasSavedData.value) {
@@ -36,7 +40,6 @@ function onRestore() {
 }
 
 function onDismiss() {
-  clearPersistence()
   showPrompt.value = false
 }
 
@@ -130,8 +133,8 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
         v-if="showPrompt"
         icon="i-lucide-history"
         title="Restore previous data?"
-        :description="`Last saved: ${savedEntry ? formatTimeAgo(savedEntry.savedAt) : ''}`"
-        color="primary"
+        :description="`Last saved: ${savedEntry ? formatTimeAgo(savedEntry.savedAt) : ''}${isStale ? ' (older than 15 days)' : ''}`"
+        :color="isStale ? 'warning' : 'primary'"
         variant="subtle"
         orientation="horizontal"
         close
@@ -139,7 +142,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
           { label: 'Restore', color: 'primary', onClick: onRestore },
           { label: 'Start Fresh', color: 'neutral', variant: 'outline', onClick: onDismiss }
         ]"
-        @update:open="showPrompt = false"
+        @update:open="(v) => { if (!v) showPrompt = false }"
       />
 
       <UCard
@@ -147,9 +150,33 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
         :style="{ borderTopColor: 'var(--ui-primary)' }"
       >
         <template #header>
-          <h2 class="text-lg font-semibold text-(--ui-primary)">
-            Basic
-          </h2>
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-(--ui-primary)">
+              Basic
+            </h2>
+            <div
+              v-if="hasSavedData"
+              class="flex items-center gap-2 text-sm"
+            >
+              <span :class="isStale ? 'text-warning' : 'text-(--ui-text-dimmed)'">
+                Last saved: {{ formatTimeAgo(savedEntry?.savedAt ?? '') }}
+              </span>
+              <span
+                v-if="isStale"
+                class="text-warning"
+              >
+                (older than 15 days)
+              </span>
+              <UButton
+                label="Restore"
+                color="primary"
+                variant="link"
+                size="xs"
+                data-testid="inline-restore"
+                @click="onRestore"
+              />
+            </div>
+          </div>
         </template>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

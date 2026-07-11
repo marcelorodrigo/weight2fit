@@ -141,6 +141,52 @@ describe('persistence', () => {
 
     expect(page.text()).toContain('Restore previous data?')
   })
+
+  it('shows inline restore element when saved data exists', async () => {
+    const now = new Date().toISOString()
+    store.mockRef.value = { data: { weight: 75.5 }, savedAt: now }
+
+    const page = await mountPage()
+    await flushPromises()
+
+    expect(page.text()).toContain('Last saved')
+    expect(page.text()).toContain('Restore')
+  })
+
+  it('hides inline restore element when no saved data', async () => {
+    const page = await mountPage()
+    await flushPromises()
+
+    expect(page.text()).not.toContain('Last saved')
+  })
+
+  it('shows stale warning when data is older than 15 days', async () => {
+    const sixteenDaysAgo = new Date(Date.now() - 16 * 24 * 60 * 60 * 1000).toISOString()
+    store.mockRef.value = { data: { weight: 75.5 }, savedAt: sixteenDaysAgo }
+
+    const page = await mountPage()
+    await flushPromises()
+
+    expect(page.text()).toContain('older than 15 days')
+  })
+
+  it('inline restore calls restorePersistence and populates form', async () => {
+    const now = new Date().toISOString()
+    store.mockRef.value = { data: { weight: 82.5 }, savedAt: now }
+
+    const page = await mountPage()
+    await flushPromises()
+
+    const inlineRestore = page.find('[data-testid="inline-restore"]')
+    expect(inlineRestore.exists()).toBe(true)
+    await inlineRestore.trigger('click')
+    await flushPromises()
+
+    const inputs = page.findAll('input')
+    const weightInput = inputs[0]
+    expect(weightInput).toBeDefined()
+    expect((weightInput!.element as HTMLInputElement).value).toBe('82.5')
+  })
 })
 
 async function setField(page: Awaited<ReturnType<typeof mountPage>>, index: number, value: string) {
