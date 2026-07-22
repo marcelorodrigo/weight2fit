@@ -18,7 +18,7 @@
     "@iconify-json/lucide": "^1.2.114",
     "@iconify-json/simple-icons": "^1.2.87",
     "@nuxt/ui": "^4.9.0",
-    "@nuxtjs/seo": "5.3.1",
+    "@nuxtjs/seo": "5.3.3",
     "@takumi-rs/core": "2.0.0-rc.9",
     "@vueuse/core": "^14.3.0",
     "nuxt": "^4.4.8",
