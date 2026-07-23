@@ -2,9 +2,24 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { effectScope, nextTick } from 'vue'
 import type { EffectScope } from 'vue'
 import { Window } from 'happy-dom'
+import type { WeightFormState } from '~/composables/useWeightFit'
 
 const STORAGE_KEY = 'weight-form-data'
 const originalLocalStorage = Object.getOwnPropertyDescriptor(globalThis, 'localStorage')
+const completeWeightData = {
+  weight: 75.5,
+  percentFat: 18.5,
+  percentHydration: 55,
+  visceralFatMass: 3.2,
+  boneMass: 2.8,
+  muscleMass: 35,
+  basalMet: 1700,
+  physiqueRating: 7,
+  activeMet: 2100,
+  metabolicAge: 30,
+  visceralFatRating: 3,
+  bmi: 23.5
+} satisfies Required<WeightFormState>
 
 const testScopes: EffectScope[] = []
 let storageWindow: Window
@@ -99,21 +114,22 @@ describe('useWeightFormPersistence', () => {
     expect(dataAgain?.weight).toBe(75.5)
   })
 
-  it('stores JSON and restores it in a new composable instance', async () => {
+  it('stores and restores every form field through localStorage', async () => {
     const { save } = createPersistence()
-    save({ weight: 75.5 })
+    save(completeWeightData)
     await nextTick()
 
     const stored = window.localStorage.getItem(STORAGE_KEY)
     expect(stored).not.toBeNull()
-    expect(JSON.parse(stored!)).toMatchObject({
-      data: { weight: 75.5 }
+    expect(JSON.parse(stored!)).toEqual({
+      data: completeWeightData,
+      savedAt: expect.any(String)
     })
 
     stopPersistenceScopes()
     const { hasSavedData, restore } = createPersistence()
     expect(hasSavedData.value).toBe(true)
-    expect(restore()).toEqual({ weight: 75.5 })
+    expect(restore()).toEqual(completeWeightData)
   })
 
   it('stores a savedAt timestamp on save', () => {
@@ -124,41 +140,6 @@ describe('useWeightFormPersistence', () => {
     expect(savedEntry.value).not.toBeNull()
     expect(savedEntry.value?.savedAt).toBeDefined()
     expect(new Date(savedEntry.value!.savedAt).getTime()).not.toBeNaN()
-  })
-
-  it('saves optional fields', () => {
-    const { save, restore } = createPersistence()
-
-    save({
-      weight: 75.5,
-      percentFat: 18.5,
-      percentHydration: 55,
-      visceralFatMass: 3.2,
-      boneMass: 2.8,
-      muscleMass: 35.0,
-      basalMet: 1700,
-      physiqueRating: 7,
-      activeMet: 2100,
-      metabolicAge: 30,
-      visceralFatRating: 3,
-      bmi: 23.5
-    })
-
-    const data = restore()
-    expect(data).toEqual({
-      weight: 75.5,
-      percentFat: 18.5,
-      percentHydration: 55,
-      visceralFatMass: 3.2,
-      boneMass: 2.8,
-      muscleMass: 35.0,
-      basalMet: 1700,
-      physiqueRating: 7,
-      activeMet: 2100,
-      metabolicAge: 30,
-      visceralFatRating: 3,
-      bmi: 23.5
-    })
   })
 
   it('ignores malformed legacy data and replaces it on the next save', async () => {
