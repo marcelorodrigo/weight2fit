@@ -21,7 +21,7 @@
     "@nuxtjs/seo": "5.3.3",
     "@takumi-rs/core": "2.4.0",
     "@vueuse/core": "^14.3.0",
-    "nuxt": "^4.4.8",
+    "nuxt": "^4.5.0",
     "tailwindcss": "^4.3.2"
   },
   "devDependencies": {
