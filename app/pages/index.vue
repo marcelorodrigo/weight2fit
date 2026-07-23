@@ -134,7 +134,7 @@ const tools = [{
 
       <template #title>
         Create Garmin-ready FIT files from your
-        <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+        <span class="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
           body data.
         </span>
       </template>
