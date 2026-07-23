@@ -13,7 +13,7 @@ withDefaults(defineProps<{
     :is="as"
     :class="[
       'font-semibold inline-block',
-      'bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_100%]',
+      'bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent bg-[length:200%_100%]',
       'animate-shimmer',
       size,
       $attrs.class

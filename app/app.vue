@@ -1,5 +1,24 @@
 <script setup lang="ts">
+import type { NavigationMenuItem } from '@nuxt/ui'
+
 const config = useAppConfig()
+
+const navigationItems = [{
+  label: 'Home',
+  to: '/'
+}, {
+  label: 'Weight Tool',
+  to: '/weight'
+}, {
+  label: 'FIT Viewer',
+  to: '/viewer'
+}, {
+  label: 'Fields',
+  to: '/fields'
+}, {
+  label: 'About',
+  to: '/about'
+}] satisfies NavigationMenuItem[]
 
 useHead({
   meta: [
@@ -33,42 +52,27 @@ useSeoMeta({
 
 <template>
   <UApp>
-    <UHeader>
-      <template #left>
-        <NuxtLink
-          to="/"
-          class="flex items-center gap-2"
-        >
-          <AppLogo
-            size="text-base"
-            class="hidden sm:inline"
-          />
-        </NuxtLink>
-
-        <UNavigationMenu
-          :items="[{
-            label: 'Home',
-            to: '/'
-          }, {
-            label: 'Weight Tool',
-            to: '/weight'
-          }, {
-            label: 'FIT Viewer',
-            to: '/viewer'
-          }, {
-            label: 'Fields',
-            to: '/fields'
-          }, {
-            label: 'About',
-            to: '/about'
-          }]"
-          variant="link"
-          color="neutral"
+    <UHeader
+      title="Weight 2 FIT"
+      mode="slideover"
+      :toggle="{ class: 'size-11 lg:size-8' }"
+      :menu="{ side: 'right' }"
+    >
+      <template #title>
+        <AppLogo
+          size="text-lg"
+          class="whitespace-nowrap"
         />
       </template>
 
+      <UNavigationMenu
+        :items="navigationItems"
+        variant="link"
+        color="neutral"
+      />
+
       <template #right>
-        <UColorModeButton />
+        <UColorModeButton class="size-11 lg:size-8" />
 
         <UButton
           to="https://github.com/marcelorodrigo/weight2fit"
@@ -77,6 +81,18 @@ useSeoMeta({
           aria-label="GitHub"
           color="neutral"
           variant="ghost"
+          class="size-11 lg:size-8"
+        />
+      </template>
+
+      <template #body>
+        <UNavigationMenu
+          :items="navigationItems"
+          orientation="vertical"
+          variant="link"
+          color="neutral"
+          class="-mx-2.5"
+          :ui="{ link: 'min-h-11' }"
         />
       </template>
     </UHeader>
@@ -87,7 +103,7 @@ useSeoMeta({
 
     <UFooter>
       <template #left>
-        <p class="text-sm text-(--ui-text-muted)">
+        <p class="text-sm text-muted">
           © {{ new Date().getFullYear() }} Weight 2 FIT
         </p>
       </template>

@@ -46,7 +46,7 @@ useSchemaOrg([
       }]"
     >
       <template #title>
-        <span class="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_100%] animate-shimmer">
+        <span class="animate-shimmer bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent bg-[length:200%_100%]">
           Weight 2 FIT
         </span>
       </template>

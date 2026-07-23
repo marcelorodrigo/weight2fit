@@ -126,7 +126,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
     <UForm
       :state="state"
       :validate="validate"
-      class="max-w-2xl mx-auto space-y-6 p-6"
+      class="max-w-2xl mx-auto space-y-6 px-4 py-6 sm:p-6"
       @submit="onSubmit"
     >
       <UAlert
@@ -138,6 +138,10 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
         variant="subtle"
         orientation="horizontal"
         close
+        :ui="{
+          root: 'flex-col items-start sm:flex-row sm:items-center',
+          actions: 'w-full sm:w-auto'
+        }"
         :actions="[
           { label: 'Restore', color: 'primary', onClick: onRestore },
           { label: 'Start Fresh', color: 'neutral', variant: 'outline', onClick: onDismiss }
@@ -150,15 +154,15 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
         :style="{ borderTopColor: 'var(--ui-primary)' }"
       >
         <template #header>
-          <div class="flex items-center justify-between">
-            <h2 class="text-lg font-semibold text-(--ui-primary)">
+          <div class="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <h2 class="text-lg font-semibold text-primary">
               Basic
             </h2>
             <div
               v-if="hasSavedData"
-              class="flex items-center gap-2 text-sm"
+              class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm"
             >
-              <span :class="isStale ? 'text-warning' : 'text-(--ui-text-dimmed)'">
+              <span :class="isStale ? 'text-warning' : 'text-dimmed'">
                 Last saved: {{ formatTimeAgo(savedEntry?.savedAt ?? '') }}
               </span>
               <span
@@ -171,7 +175,8 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
                 label="Restore"
                 color="primary"
                 variant="link"
-                size="xs"
+                size="sm"
+                class="-ms-2 min-h-11"
                 data-testid="inline-restore"
                 @click="onRestore"
               />
@@ -216,7 +221,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
         :style="{ borderTopColor: 'var(--ui-primary)' }"
       >
         <template #header>
-          <h2 class="text-lg font-semibold text-(--ui-primary)">
+          <h2 class="text-lg font-semibold text-primary">
             Body Composition
           </h2>
         </template>
@@ -301,7 +306,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
         :style="{ borderTopColor: 'var(--ui-primary)' }"
       >
         <template #header>
-          <h2 class="text-lg font-semibold text-(--ui-primary)">
+          <h2 class="text-lg font-semibold text-primary">
             Metabolic
           </h2>
         </template>
@@ -356,7 +361,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
         :style="{ borderTopColor: 'var(--ui-primary)' }"
       >
         <template #header>
-          <h2 class="text-lg font-semibold text-(--ui-primary)">
+          <h2 class="text-lg font-semibold text-primary">
             Ratings
           </h2>
         </template>
@@ -399,6 +404,7 @@ function onSubmit(event: FormSubmitEvent<WeightFormState>) {
           type="submit"
           size="xl"
           icon="i-lucide-download"
+          class="w-full justify-center sm:w-auto"
         >
           Generate FIT File
         </UButton>
