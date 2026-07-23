@@ -22,7 +22,7 @@
     "@takumi-rs/core": "2.4.0",
     "@vueuse/core": "^14.3.0",
     "nuxt": "^4.5.0",
-    "tailwindcss": "^4.3.2"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.16.0",
