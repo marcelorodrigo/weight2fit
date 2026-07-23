@@ -1,32 +1,56 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { effectScope, nextTick } from 'vue'
+import type { EffectScope } from 'vue'
+import { Window } from 'happy-dom'
 
-const store = vi.hoisted(() => {
-  const mockRef = { value: null as Record<string, unknown> | null }
-  return { mockRef }
-})
+const STORAGE_KEY = 'weight-form-data'
+const originalLocalStorage = Object.getOwnPropertyDescriptor(globalThis, 'localStorage')
 
-vi.mock('@vueuse/core', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@vueuse/core')>()
-  const { ref } = await import('vue')
-  store.mockRef = ref<Record<string, unknown> | null>(null)
-  return {
-    ...actual,
-    useLocalStorage: vi.fn(() => store.mockRef)
+const testScopes: EffectScope[] = []
+let storageWindow: Window
+
+function createPersistence() {
+  const scope = effectScope()
+  testScopes.push(scope)
+  return scope.run(() => useWeightFormPersistence())!
+}
+
+function stopPersistenceScopes() {
+  for (const scope of testScopes) {
+    scope.stop()
   }
-})
+  testScopes.length = 0
+}
 
 describe('useWeightFormPersistence', () => {
   beforeEach(() => {
-    store.mockRef.value = null
+    stopPersistenceScopes()
+    storageWindow = new Window({ url: 'http://localhost' })
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: storageWindow.localStorage
+    })
+    window.localStorage.clear()
+  })
+
+  afterEach(() => {
+    stopPersistenceScopes()
+    storageWindow.happyDOM.abort()
+
+    if (originalLocalStorage) {
+      Object.defineProperty(globalThis, 'localStorage', originalLocalStorage)
+    } else {
+      Reflect.deleteProperty(globalThis, 'localStorage')
+    }
   })
 
   it('starts with no saved data', () => {
-    const { hasSavedData } = useWeightFormPersistence()
+    const { hasSavedData } = createPersistence()
     expect(hasSavedData.value).toBe(false)
   })
 
   it('saves data and sets hasSavedData to true', () => {
-    const { hasSavedData, save } = useWeightFormPersistence()
+    const { hasSavedData, save } = createPersistence()
 
     save({ weight: 75.5, percentFat: 18.5 })
 
@@ -34,7 +58,7 @@ describe('useWeightFormPersistence', () => {
   })
 
   it('restores saved data', () => {
-    const { save, restore } = useWeightFormPersistence()
+    const { save, restore } = createPersistence()
 
     save({ weight: 75.5, percentFat: 18.5 })
     const data = restore()
@@ -43,7 +67,7 @@ describe('useWeightFormPersistence', () => {
   })
 
   it('clears saved data', () => {
-    const { hasSavedData, save, clear } = useWeightFormPersistence()
+    const { hasSavedData, save, clear } = createPersistence()
 
     save({ weight: 75.5 })
     expect(hasSavedData.value).toBe(true)
@@ -53,7 +77,7 @@ describe('useWeightFormPersistence', () => {
   })
 
   it('returns null from restore after clear', () => {
-    const { save, restore, clear } = useWeightFormPersistence()
+    const { save, restore, clear } = createPersistence()
 
     save({ weight: 75.5 })
     clear()
@@ -63,7 +87,7 @@ describe('useWeightFormPersistence', () => {
   })
 
   it('restores a copy of the data, not a reference', () => {
-    const { save, restore } = useWeightFormPersistence()
+    const { save, restore } = createPersistence()
 
     save({ weight: 75.5 })
     const data = restore()
@@ -75,17 +99,25 @@ describe('useWeightFormPersistence', () => {
     expect(dataAgain?.weight).toBe(75.5)
   })
 
-  it('persists across composable instances', () => {
-    const { save } = useWeightFormPersistence()
+  it('stores JSON and restores it in a new composable instance', async () => {
+    const { save } = createPersistence()
     save({ weight: 75.5 })
+    await nextTick()
 
-    const { hasSavedData, restore } = useWeightFormPersistence()
+    const stored = window.localStorage.getItem(STORAGE_KEY)
+    expect(stored).not.toBeNull()
+    expect(JSON.parse(stored!)).toMatchObject({
+      data: { weight: 75.5 }
+    })
+
+    stopPersistenceScopes()
+    const { hasSavedData, restore } = createPersistence()
     expect(hasSavedData.value).toBe(true)
     expect(restore()).toEqual({ weight: 75.5 })
   })
 
   it('stores a savedAt timestamp on save', () => {
-    const { save, savedEntry } = useWeightFormPersistence()
+    const { save, savedEntry } = createPersistence()
 
     save({ weight: 75.5 })
 
@@ -95,7 +127,7 @@ describe('useWeightFormPersistence', () => {
   })
 
   it('saves optional fields', () => {
-    const { save, restore } = useWeightFormPersistence()
+    const { save, restore } = createPersistence()
 
     save({
       weight: 75.5,
@@ -126,6 +158,22 @@ describe('useWeightFormPersistence', () => {
       metabolicAge: 30,
       visceralFatRating: 3,
       bmi: 23.5
+    })
+  })
+
+  it('ignores malformed legacy data and replaces it on the next save', async () => {
+    window.localStorage.setItem(STORAGE_KEY, '[object Object]')
+
+    const { hasSavedData, restore, save } = createPersistence()
+
+    expect(hasSavedData.value).toBe(false)
+    expect(restore()).toBeNull()
+
+    save({ weight: 82.5 })
+    await nextTick()
+
+    expect(JSON.parse(window.localStorage.getItem(STORAGE_KEY)!)).toMatchObject({
+      data: { weight: 82.5 }
     })
   })
 })
