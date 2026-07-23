@@ -53,6 +53,12 @@ describe('useFitViewer', () => {
     })
   })
 
+  describe('formatBytes', () => {
+    it('formats byte values with trimmed decimal precision', () => {
+      expect(compose.formatBytes(1536)).toBe('1.5 KB')
+    })
+  })
+
   describe('validateFile', () => {
     it('rejects empty file', async () => {
       const emptyFile = new File([''], 'test.fit', { type: 'application/octet-stream' })
