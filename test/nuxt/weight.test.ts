@@ -112,7 +112,7 @@ describe('persistence', () => {
     URL.createObjectURL = vi.fn().mockReturnValue('blob:mock')
   })
 
-  it('shows restore prompt when no saved data', async () => {
+  it('hides restore prompt when no saved data', async () => {
     const page = await mountPage()
     await flushPromises()
 

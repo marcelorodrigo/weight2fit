@@ -1,5 +1,11 @@
 # Weight 2 FIT
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=marcelorodrigo_weight2fit&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcelorodrigo_weight2fit)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=marcelorodrigo_weight2fit&metric=coverage)](https://sonarcloud.io/summary/new_code?id=marcelorodrigo_weight2fit)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=marcelorodrigo_weight2fit&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=marcelorodrigo_weight2fit)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=marcelorodrigo_weight2fit&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=marcelorodrigo_weight2fit)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=marcelorodrigo_weight2fit&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=marcelorodrigo_weight2fit)
+
 A privacy-first tool to import body composition measurements from any source into Garmin Connect, without compromising your account security or sharing data with third-party servers.
 
 ## The Problem
