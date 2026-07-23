@@ -17,7 +17,7 @@ const schema = useWeightFitSchema()
       description="Machine-readable form definitions for AI agents and LLMs. These schemas describe the structure of our forms, validation rules, and acceptable input values."
     />
 
-    <div class="max-w-4xl mx-auto space-y-8 p-6">
+    <div class="mx-auto max-w-4xl space-y-6 px-4 py-6 sm:space-y-8 sm:p-6">
       <!-- Overview Section -->
       <UCard>
         <template #header>
@@ -30,7 +30,7 @@ const schema = useWeightFitSchema()
             This page provides machine-readable schemas for AI agents, language models, and developer tools.
             Each form is documented with:
           </p>
-          <ul class="list-disc list-inside space-y-2 text-sm text-gray-600 dark:text-gray-400">
+          <ul class="list-inside list-disc space-y-2 text-sm text-muted">
             <li>Complete field definitions with types and constraints</li>
             <li>Validation rules (min/max values, required fields)</li>
             <li>Unit information for numeric fields</li>
@@ -51,31 +51,31 @@ const schema = useWeightFitSchema()
         <div class="space-y-6">
           <!-- Description -->
           <div>
-            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            <h3 class="mb-2 text-sm font-semibold text-toned">
               Description
             </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400">
+            <p class="text-sm text-muted">
               {{ schema.description }}
             </p>
           </div>
 
           <!-- Sections Overview -->
           <div>
-            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+            <h3 class="mb-3 text-sm font-semibold text-toned">
               Form Sections
             </h3>
             <div class="space-y-2">
               <div
                 v-for="section in schema.sections"
                 :key="section.id"
-                class="p-3 border border-gray-200 dark:border-gray-700 rounded"
+                class="rounded border border-default p-3"
               >
                 <h4 class="font-medium text-sm">
                   {{ section.title }}
                 </h4>
                 <p
                   v-if="section.description"
-                  class="text-xs text-gray-600 dark:text-gray-400 mt-1"
+                  class="mt-1 text-xs text-muted"
                 >
                   {{ section.description }}
                 </p>
@@ -85,42 +85,42 @@ const schema = useWeightFitSchema()
 
           <!-- Fields Documentation -->
           <div>
-            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+            <h3 class="mb-3 text-sm font-semibold text-toned">
               Fields
             </h3>
             <div class="space-y-4">
               <div
                 v-for="field in schema.fields"
                 :key="field.name"
-                class="border border-gray-200 dark:border-gray-700 rounded p-4 space-y-2"
+                class="space-y-2 rounded border border-default p-4"
               >
-                <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-col items-start gap-2 sm:flex-row sm:justify-between">
                   <div>
                     <h4 class="font-mono text-sm font-semibold text-primary">
                       {{ field.name }}
                     </h4>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                    <p class="text-sm text-muted">
                       {{ field.label }}
                     </p>
                   </div>
-                  <div class="flex flex-col items-end gap-1 text-xs">
+                  <div class="flex flex-row items-center gap-2 text-xs sm:flex-col sm:items-end sm:gap-1">
                     <span
                       v-if="field.required"
-                      class="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 px-2 py-1 rounded"
+                      class="rounded bg-error/10 px-2 py-1 text-error"
                     >
                       Required
                     </span>
-                    <span class="text-gray-500">
+                    <span class="text-dimmed">
                       {{ field.type }}
                     </span>
                   </div>
                 </div>
 
-                <p class="text-sm text-gray-700 dark:text-gray-300">
+                <p class="text-sm text-toned">
                   {{ field.description }}
                 </p>
 
-                <div class="grid grid-cols-2 gap-2 text-xs text-gray-600 dark:text-gray-400">
+                <div class="grid grid-cols-1 gap-2 text-xs text-muted sm:grid-cols-2">
                   <div
                     v-if="field.unit"
                     class="col-span-1"
@@ -169,7 +169,7 @@ const schema = useWeightFitSchema()
                   </div>
                 </div>
 
-                <div class="text-xs text-gray-500">
+                <div class="break-words text-xs text-dimmed">
                   Section: <span class="font-mono">{{ field.section }}</span>
                 </div>
               </div>
@@ -178,13 +178,13 @@ const schema = useWeightFitSchema()
 
           <!-- Machine-Readable Schema -->
           <div>
-            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            <h3 class="mb-2 text-sm font-semibold text-toned">
               Machine-Readable Schema
             </h3>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">
+            <p class="mb-3 text-xs text-muted">
               JSON Schema Draft 7 format available at:
             </p>
-            <div class="bg-gray-50 dark:bg-gray-900 p-3 rounded border border-gray-200 dark:border-gray-700 font-mono text-xs overflow-x-auto">
+            <div class="overflow-x-auto rounded border border-default bg-muted p-3 font-mono text-xs">
               <a
                 href="/weight-form-schema.json"
                 class="text-primary hover:underline"
@@ -195,14 +195,14 @@ const schema = useWeightFitSchema()
           </div>
 
           <!-- Usage Instructions -->
-          <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded p-4">
-            <h3 class="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-2">
+          <div class="rounded border border-info/25 bg-info/10 p-4">
+            <h3 class="mb-2 text-sm font-semibold text-info">
               For AI Agents and LLMs
             </h3>
-            <p class="text-sm text-blue-800 dark:text-blue-200 mb-2">
+            <p class="mb-2 text-sm text-toned">
               Use these schemas to:
             </p>
-            <ul class="text-sm text-blue-800 dark:text-blue-200 list-disc list-inside space-y-1">
+            <ul class="list-inside list-disc space-y-1 text-sm text-toned">
               <li>Understand form structure and valid fields</li>
               <li>Validate user input before submission</li>
               <li>Generate accurate form completions</li>
@@ -223,34 +223,34 @@ const schema = useWeightFitSchema()
 
         <div class="space-y-4 text-sm">
           <div>
-            <h3 class="font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <h3 class="mb-1 font-semibold text-toned">
               Schema Version
             </h3>
-            <p class="text-gray-600 dark:text-gray-400 font-mono">
+            <p class="break-words font-mono text-muted">
               {{ schema.version }}
             </p>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <h3 class="mb-1 font-semibold text-toned">
               Form ID
             </h3>
-            <p class="text-gray-600 dark:text-gray-400 font-mono">
+            <p class="break-words font-mono text-muted">
               {{ schema.formId }}
             </p>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <h3 class="mb-1 font-semibold text-toned">
               Required Fields
             </h3>
-            <p class="text-gray-600 dark:text-gray-400">
+            <p class="break-words text-muted">
               {{ schema.fields.filter(f => f.required).map(f => f.name).join(', ') }}
             </p>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <h3 class="mb-1 font-semibold text-toned">
               Optional Fields
             </h3>
-            <p class="text-gray-600 dark:text-gray-400 text-xs">
+            <p class="break-words text-xs text-muted">
               {{ schema.fields.filter(f => !f.required).map(f => f.name).join(', ') }}
             </p>
           </div>
@@ -266,24 +266,24 @@ const schema = useWeightFitSchema()
         </template>
 
         <div class="space-y-4 text-sm">
-          <p class="text-gray-700 dark:text-gray-300">
+          <p class="text-toned">
             This page is automatically discovered by AI agents and LLMs via:
           </p>
-          <ul class="space-y-2 list-disc list-inside text-gray-600 dark:text-gray-400">
+          <ul class="list-inside list-disc space-y-2 text-muted">
             <li>
               <strong>llms.txt:</strong> Nuxt AI-Ready automatically includes this page in the
-              <code class="bg-gray-100 dark:bg-gray-900 px-1 rounded">/llms.txt</code>
+              <code class="rounded bg-elevated px-1">/llms.txt</code>
               and
-              <code class="bg-gray-100 dark:bg-gray-900 px-1 rounded">/llms-full.txt</code>
+              <code class="rounded bg-elevated px-1">/llms-full.txt</code>
               files
             </li>
             <li>
               <strong>Markdown export:</strong> This page can be fetched as markdown at
-              <code class="bg-gray-100 dark:bg-gray-900 px-1 rounded">/api/forms.md</code>
+              <code class="rounded bg-elevated px-1">/api/forms.md</code>
             </li>
             <li>
               <strong>JSON Schema:</strong> Machine-readable schema at
-              <code class="bg-gray-100 dark:bg-gray-900 px-1 rounded">/weight-form-schema.json</code>
+              <code class="rounded bg-elevated px-1">/weight-form-schema.json</code>
             </li>
           </ul>
         </div>

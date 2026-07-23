@@ -87,19 +87,35 @@ function formatCellValue(value: unknown): string {
 </script>
 
 <template>
-  <div class="space-y-3">
-    <h4 class="font-medium text-(--ui-text) capitalize">
+  <div class="min-w-0 space-y-3">
+    <h4 class="font-medium text-highlighted capitalize">
       {{ messageType }}
     </h4>
+
+    <p
+      v-if="columns.length > 1"
+      class="flex items-center gap-1.5 text-xs text-muted sm:hidden"
+    >
+      <UIcon
+        name="i-lucide-move-horizontal"
+        class="size-4 shrink-0"
+      />
+      Swipe horizontally to see all fields
+    </p>
 
     <UTable
       :columns="columns"
       :data="data"
       :striped="true"
-      class="w-full"
+      :caption="`${messageType} messages`"
+      class="max-w-full"
+      :ui="{
+        th: 'px-3 py-3 sm:px-4 sm:py-3.5',
+        td: 'px-3 py-3 sm:p-4'
+      }"
     >
       <template #empty>
-        <div class="text-center py-8 text-(--ui-text-muted)">
+        <div class="py-8 text-center text-muted">
           No fields in this message type
         </div>
       </template>

@@ -83,8 +83,9 @@ function triggerFileInput() {
 <template>
   <UCard
     :class="[
-      'relative border-2 transition-colors duration-200 cursor-pointer',
-      isDragging ? 'border-primary bg-(--ui-primary)/5' : 'border-(--ui-border) hover:border-primary/50'
+      'relative border-2 transition-colors duration-200',
+      isDragging ? 'border-primary bg-primary/5' : 'border-default hover:border-primary/50',
+      props.disabled ? 'cursor-not-allowed opacity-75' : 'cursor-pointer'
     ]"
     @dragover="onDragOver"
     @dragleave="onDragLeave"
@@ -110,27 +111,39 @@ function triggerFileInput() {
       @click.stop
     >
 
-    <div class="text-center py-12">
+    <div class="py-8 text-center sm:py-12">
       <UIcon
         v-if="!isDragging"
         name="i-lucide-upload-cloud"
-        class="mx-auto mb-4 text-6xl text-(--ui-text-muted)"
+        class="mx-auto mb-4 text-5xl text-muted sm:text-6xl"
       />
       <UIcon
         v-else
         name="i-lucide-download"
-        class="mx-auto mb-4 text-6xl text-primary animate-bounce"
+        class="mx-auto mb-4 text-5xl text-primary animate-bounce sm:text-6xl"
       />
 
-      <h3 class="text-lg font-medium text-(--ui-text) mb-2">
-        {{ isDragging ? 'Drop .fit file here' : 'Drag & drop a .fit file here' }}
+      <h3 class="mb-2 text-lg font-medium text-highlighted">
+        <template v-if="isDragging">
+          Drop .fit file here
+        </template>
+        <template v-else>
+          <span class="sm:hidden">Choose a .fit file</span>
+          <span class="hidden sm:inline">Drag & drop a .fit file here</span>
+        </template>
       </h3>
 
-      <p class="text-sm text-(--ui-text-muted) mb-4">
-        {{ isDragging ? 'Release to upload' : 'or click to browse' }}
+      <p class="mb-4 text-sm text-muted">
+        <template v-if="isDragging">
+          Release to upload
+        </template>
+        <template v-else>
+          <span class="sm:hidden">Tap anywhere to browse your files</span>
+          <span class="hidden sm:inline">or click to browse</span>
+        </template>
       </p>
 
-      <p class="text-xs text-(--ui-text-muted)">
+      <p class="text-xs text-muted">
         Maximum file size: 10MB • Only .fit files accepted
       </p>
     </div>

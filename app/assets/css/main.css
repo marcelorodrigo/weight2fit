@@ -13,3 +13,9 @@
 @utility animate-shimmer {
   animation: shimmer 4s linear infinite;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-shimmer {
+    animation: none;
+  }
+}

@@ -8,7 +8,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-interface TabItem {
+interface MessageGroup {
   value: string
   label: string
   count: number
@@ -43,14 +43,32 @@ const messageGroups = computed(() => {
   }).filter(g => g.count > 0)
 })
 
-const activeTab = ref<string | undefined>(undefined)
+const activeTab = ref('')
 
 watch(messageGroups, (groups) => {
-  if (groups.length > 0 && activeTab.value === undefined) {
-    const first = groups[0]
-    if (first) activeTab.value = first.value
+  if (!groups.some(group => group.value === activeTab.value)) {
+    activeTab.value = groups[0]?.value ?? ''
   }
 }, { immediate: true })
+
+const activeGroup = computed<MessageGroup | undefined>(() => {
+  return messageGroups.value.find(group => group.value === activeTab.value)
+})
+
+const tabItems = computed(() => {
+  return messageGroups.value.map(group => ({
+    label: group.label,
+    badge: group.count,
+    value: group.value
+  }))
+})
+
+const selectItems = computed(() => {
+  return messageGroups.value.map(group => ({
+    label: `${group.label} (${group.count})`,
+    value: group.value
+  }))
+})
 
 function formatTypeName(typeKey: string): string {
   return typeKey
@@ -59,10 +77,6 @@ function formatTypeName(typeKey: string): string {
     .replace(/^./, c => c.toUpperCase())
     .trim()
 }
-
-function getTabContent(value: string): TabItem | undefined {
-  return messageGroups.value.find(g => g.value === value)
-}
 </script>
 
 <template>
@@ -70,27 +84,36 @@ function getTabContent(value: string): TabItem | undefined {
     v-if="messageGroups.length > 0"
     class="space-y-4"
   >
+    <UFormField
+      label="Message type"
+      class="sm:hidden"
+    >
+      <USelect
+        v-model="activeTab"
+        :items="selectItems"
+        size="xl"
+        aria-label="Message type"
+        class="min-h-11 w-full"
+      />
+    </UFormField>
+
     <UTabs
       v-model="activeTab"
-      :items="messageGroups.map(g => ({
-        label: `${g.label} (${g.count})`,
-        value: g.value,
-        slot: 'tab'
-      }))"
-      class="w-full"
-    >
-      <template #default="{ item }">
-        <FitMessageTable
-          :messages="getTabContent(item.value)?.messages || []"
-          :message-type="getTabContent(item.value)?.typeName || item.value"
-        />
-      </template>
-    </UTabs>
+      :items="tabItems"
+      :content="false"
+      class="hidden w-full sm:flex"
+    />
+
+    <FitMessageTable
+      v-if="activeGroup"
+      :messages="activeGroup.messages"
+      :message-type="activeGroup.typeName"
+    />
   </div>
 
   <div
     v-else
-    class="text-center py-12 text-(--ui-text-muted)"
+    class="py-12 text-center text-muted"
   >
     <UIcon
       name="i-lucide-file-search"

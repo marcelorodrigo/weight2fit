@@ -71,7 +71,7 @@ const fields = [
       description="Learn what each metric in the Weight Scale FIT Generator means and how it helps track your fitness progress."
     />
 
-    <UPageSection class="max-w-4xl">
+    <UPageSection :ui="{ container: 'max-w-4xl' }">
       <div class="space-y-4">
         <UCard
           v-for="field in fields"
@@ -81,10 +81,10 @@ const fields = [
         >
           <div class="flex items-start justify-between">
             <div class="flex-1">
-              <h3 class="font-semibold text-lg text-(--ui-primary)">
+              <h3 class="text-lg font-semibold text-primary">
                 {{ field.name }}
               </h3>
-              <p class="text-sm text-(--ui-text-muted) mt-1">
+              <p class="mt-1 text-sm text-muted">
                 {{ field.description }}
               </p>
             </div>

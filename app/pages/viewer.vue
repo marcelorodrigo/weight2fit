@@ -6,7 +6,6 @@ usePageSeo({
 })
 
 const { state, decode, clear, downloadJson } = useFitViewer()
-const fileInputRef = ref<HTMLInputElement>()
 const errorMessage = ref<string>('')
 
 function handleFileSelect(file: File) {
@@ -21,9 +20,6 @@ function handleError(message: string) {
 function handleClear() {
   clear()
   errorMessage.value = ''
-  if (fileInputRef.value) {
-    fileInputRef.value.value = ''
-  }
 }
 
 function formatBytes(bytes: number): string {
@@ -59,23 +55,26 @@ function formatBytes(bytes: number): string {
       ]"
     >
       <template #title>
-        <span class="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_100%] animate-shimmer">
+        <span class="animate-shimmer bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent bg-[length:200%_100%]">
           FIT File Viewer
         </span>
       </template>
     </UPageHero>
 
-    <UContainer class="py-8">
+    <UContainer class="py-4 sm:py-8">
       <UCard class="mb-6">
         <template #header>
-          <div class="flex items-center justify-between">
-            <h2 class="text-lg font-semibold text-(--ui-text)">
+          <div class="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <h2 class="text-lg font-semibold text-highlighted">
               Upload FIT File
             </h2>
             <UBadge
               v-if="state.file"
               color="success"
               size="sm"
+              class="max-w-full"
+              :title="state.file.name"
+              :ui="{ label: 'truncate' }"
             >
               {{ state.file.name }} ({{ formatBytes(state.file.size) }})
             </UBadge>
@@ -88,18 +87,15 @@ function formatBytes(bytes: number): string {
           @error="handleError"
         />
 
-        <div
+        <UAlert
           v-if="errorMessage"
-          class="mt-4 p-4 bg-(--ui-negative)/10 border border-(--ui-negative)/20 rounded-lg text-(--ui-negative) text-sm"
-        >
-          <div class="flex items-start gap-2">
-            <UIcon
-              name="i-lucide-alert-circle"
-              class="w-5 h-5 mt-0.5 shrink-0"
-            />
-            <span>{{ errorMessage }}</span>
-          </div>
-        </div>
+          icon="i-lucide-circle-alert"
+          title="Unable to upload file"
+          :description="errorMessage"
+          color="error"
+          variant="subtle"
+          class="mt-4"
+        />
 
         <div
           v-if="state.isLoading"
@@ -111,64 +107,53 @@ function formatBytes(bytes: number): string {
             class="w-full"
             color="primary"
           />
-          <p class="text-center text-sm text-(--ui-text-muted) mt-2">
+          <p class="mt-2 text-center text-sm text-muted">
             Decoding FIT file...
           </p>
         </div>
 
-        <div
+        <UAlert
           v-if="state.error && !state.isLoading"
-          class="mt-4 p-4 bg-(--ui-negative)/10 border border-(--ui-negative)/20 rounded-lg text-(--ui-negative) text-sm"
-        >
-          <div class="flex items-start gap-2">
-            <UIcon
-              name="i-lucide-alert-triangle"
-              class="w-5 h-5 mt-0.5 shrink-0"
-            />
-            <div>
-              <p class="font-medium">
-                {{ state.error.message }}
-              </p>
-              <p class="text-xs mt-1 opacity-75">
-                Error code: {{ state.error.code }}
-              </p>
-            </div>
-          </div>
-          <UButton
-            size="sm"
-            variant="subtle"
-            color="neutral"
-            class="mt-3"
-            @click="handleClear"
-          >
-            Clear & Try Again
-          </UButton>
-        </div>
+          icon="i-lucide-triangle-alert"
+          :title="state.error.message"
+          :description="`Error code: ${state.error.code}`"
+          color="error"
+          variant="subtle"
+          orientation="vertical"
+          :actions="[{
+            label: 'Clear & Try Again',
+            color: 'neutral',
+            variant: 'subtle',
+            onClick: handleClear
+          }]"
+          class="mt-4"
+        />
       </UCard>
 
       <UCard v-if="state.result && !state.isLoading">
         <template #header>
-          <div class="flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <h2 class="text-lg font-semibold text-(--ui-text)">
+          <div class="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div class="min-w-0">
+              <h2 class="text-lg font-semibold text-highlighted">
                 Decoded FIT File
               </h2>
-              <p class="text-sm text-(--ui-text-muted)">
-                {{ state.result.messages.length }} messages • {{ state.result.messageTypes.length }} message types
+              <p class="flex flex-wrap gap-x-2 text-sm text-muted">
+                <span>{{ state.result.messages.length }} messages</span>
+                <span>• {{ state.result.messageTypes.length }} message types</span>
                 <span
                   v-if="state.result.profileVersion"
-                  class="ml-4"
                 >
                   • Profile v{{ state.result.profileVersion.major }}.{{ state.result.profileVersion.minor }}
                 </span>
               </p>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="grid grid-cols-2 gap-2 sm:flex sm:items-center">
               <UButton
                 size="sm"
                 variant="subtle"
                 color="neutral"
                 icon="i-lucide-download"
+                class="min-h-11 justify-center"
                 @click="downloadJson"
               >
                 Download JSON
@@ -178,6 +163,7 @@ function formatBytes(bytes: number): string {
                 color="neutral"
                 variant="outline"
                 icon="i-lucide-rotate-ccw"
+                class="min-h-11 justify-center"
                 @click="handleClear"
               >
                 Clear
@@ -191,44 +177,44 @@ function formatBytes(bytes: number): string {
 
       <UCard v-if="!state.file && !state.isLoading && !state.result">
         <template #header>
-          <h2 class="text-lg font-semibold text-(--ui-text)">
+          <h2 class="text-lg font-semibold text-highlighted">
             Supported File Types
           </h2>
         </template>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="p-4 bg-(--ui-bg-elevated) rounded-lg">
+          <div class="rounded-lg bg-elevated p-4">
             <UIcon
               name="i-lucide-weight"
-              class="w-8 h-8 text-primary mb-2"
+              class="mb-2 size-8 text-primary"
             />
-            <h3 class="font-medium text-(--ui-text) mb-1">
+            <h3 class="mb-1 font-medium text-highlighted">
               Weight Scale
             </h3>
-            <p class="text-sm text-(--ui-text-muted)">
+            <p class="text-sm text-muted">
               Body composition data: weight, body fat %, muscle mass, hydration, metabolic data
             </p>
           </div>
-          <div class="p-4 bg-(--ui-bg-elevated) rounded-lg">
+          <div class="rounded-lg bg-elevated p-4">
             <UIcon
               name="i-lucide-activity"
-              class="w-8 h-8 text-green-500 mb-2"
+              class="mb-2 size-8 text-success"
             />
-            <h3 class="font-medium text-(--ui-text) mb-1">
+            <h3 class="mb-1 font-medium text-highlighted">
               Activity Records
             </h3>
-            <p class="text-sm text-(--ui-text-muted)">
+            <p class="text-sm text-muted">
               Running, cycling, swimming data: GPS, heart rate, power, cadence, speed
             </p>
           </div>
-          <div class="p-4 bg-(--ui-bg-elevated) rounded-lg">
+          <div class="rounded-lg bg-elevated p-4">
             <UIcon
               name="i-lucide-cpu"
-              class="w-8 h-8 text-purple-500 mb-2"
+              class="mb-2 size-8 text-secondary"
             />
-            <h3 class="font-medium text-(--ui-text) mb-1">
+            <h3 class="mb-1 font-medium text-highlighted">
               Device Info
             </h3>
-            <p class="text-sm text-(--ui-text-muted)">
+            <p class="text-sm text-muted">
               Device information, settings, file metadata, developer fields
             </p>
           </div>
