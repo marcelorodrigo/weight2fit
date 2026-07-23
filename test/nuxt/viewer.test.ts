@@ -39,7 +39,14 @@ describe('viewer page', () => {
   it('renders the file dropzone', async () => {
     const page = await mountViewerPage()
 
-    expect(page.findComponent({ name: 'FitFileDropzone' }).exists()).toBe(true)
+    const dropzone = page.findComponent({ name: 'FitFileDropzone' })
+    const input = dropzone.find('input[type="file"]')
+    const label = dropzone.find('label[for="fit-file-input"]')
+
+    expect(dropzone.exists()).toBe(true)
+    expect(input.attributes('id')).toBe('fit-file-input')
+    expect(label.exists()).toBe(true)
+    expect(label.text()).toBe('Upload a FIT file')
     expect(page.text()).toContain('Drag & drop a .fit file here')
     expect(page.text()).toContain('or click to browse')
   })
@@ -145,7 +152,7 @@ describe('viewer page', () => {
     const mockUseFitViewer = vi.mocked(useFitViewer)
     mockUseFitViewer.mockReturnValue({
       state: {
-        file: new File(['x'.repeat(1024)], 'test.fit', { type: 'application/octet-stream' }),
+        file: new File(['x'.repeat(1536)], 'test.fit', { type: 'application/octet-stream' }),
         result: null,
         isLoading: false,
         error: null
@@ -159,6 +166,6 @@ describe('viewer page', () => {
     await flushPromises()
 
     expect(page.text()).toContain('test.fit')
-    expect(page.text()).toContain('1 KB')
+    expect(page.text()).toContain('1.5 KB')
   })
 })

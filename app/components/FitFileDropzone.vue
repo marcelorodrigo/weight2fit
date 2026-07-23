@@ -91,7 +91,15 @@ function triggerFileInput() {
     @drop="onDrop"
     @click="triggerFileInput"
   >
+    <label
+      for="fit-file-input"
+      class="sr-only"
+    >
+      Upload a FIT file
+    </label>
+
     <input
+      id="fit-file-input"
       ref="fileInputRef"
       type="file"
       accept=".fit"
