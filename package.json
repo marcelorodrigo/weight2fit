@@ -21,7 +21,7 @@
     "@nuxtjs/seo": "5.3.6",
     "@takumi-rs/core": "2.5.4",
     "@vueuse/core": "^14.3.0",
-    "nuxt": "^4.5.0",
+    "nuxt": "^4.5.2",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
@@ -36,9 +36,9 @@
     "vitest": "^4.1.10",
     "vue-tsc": "^3.3.9"
   },
-  "packageManager": "pnpm@11.8.0",
+  "packageManager": "pnpm@11.24.0",
   "engines": {
     "node": "^26.0.0",
-    "pnpm": "^11.8.0"
+    "pnpm": "^11.24.0"
   }
 }
