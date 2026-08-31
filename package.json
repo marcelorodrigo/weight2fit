@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@garmin/fitsdk": "^21.214.0",
-    "@iconify-json/lucide": "^1.2.126",
+    "@iconify-json/lucide": "^1.2.127",
     "@iconify-json/simple-icons": "^1.2.93",
     "@nuxt/ui": "^4.11.0",
     "@nuxtjs/seo": "5.3.14",
