@@ -16,7 +16,7 @@
   "dependencies": {
     "@garmin/fitsdk": "^21.214.0",
     "@iconify-json/lucide": "^1.2.126",
-    "@iconify-json/simple-icons": "^1.2.93",
+    "@iconify-json/simple-icons": "^1.2.94",
     "@nuxt/ui": "^4.11.0",
     "@nuxtjs/seo": "5.3.14",
     "@takumi-rs/core": "2.12.0",
