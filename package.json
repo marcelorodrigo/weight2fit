@@ -19,7 +19,7 @@
     "@iconify-json/simple-icons": "^1.2.97",
     "@nuxt/ui": "^4.11.0",
     "@nuxtjs/seo": "5.3.14",
-    "@takumi-rs/core": "2.13.6",
+    "@takumi-rs/core": "2.14.0",
     "@vueuse/core": "^14.4.0",
     "nuxt": "^4.5.2",
     "tailwindcss": "^4.3.3"
@@ -28,7 +28,7 @@
     "@nuxt/eslint": "^1.17.0",
     "@nuxt/test-utils": "^4.2.0",
     "@vitest/coverage-v8": "^4.1.11",
-    "@vue/test-utils": "^2.5.0",
+    "@vue/test-utils": "^2.5.1",
     "eslint": "^10.9.1",
     "happy-dom": "^20.14.5",
     "playwright-core": "^1.63.0",
