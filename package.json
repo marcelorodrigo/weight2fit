@@ -17,7 +17,7 @@
     "@garmin/fitsdk": "^21.217.0",
     "@iconify-json/lucide": "^1.2.138",
     "@iconify-json/simple-icons": "^1.2.100",
-    "@nuxt/ui": "^4.11.0",
+    "@nuxt/ui": "^4.11.3",
     "@nuxtjs/seo": "5.3.16",
     "@takumi-rs/core": "2.14.0",
     "@vueuse/core": "^15.0.0",
