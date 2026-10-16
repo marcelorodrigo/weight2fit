@@ -26,7 +26,16 @@ export default defineConfig({
         test: {
           name: 'nuxt',
           include: ['test/nuxt/*.{test,spec}.ts'],
-          environment: 'nuxt'
+          environment: 'nuxt',
+          // jsdom keeps a valid location base; happy-dom yields an invalid
+          // `window.location.href`, which breaks nuxt 4.6's prefetch scheduler
+          // (`new URL(to.fullPath, window.location.href)` in the router
+          // afterEach hook throws `TypeError: Invalid URL`)
+          environmentOptions: {
+            nuxt: {
+              domEnvironment: 'jsdom'
+            }
+          }
         }
       })
     ]
