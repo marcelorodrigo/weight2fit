@@ -30,11 +30,11 @@
     "@vitest/coverage-v8": "^4.1.11",
     "@vue/test-utils": "^2.5.1",
     "eslint": "^10.11.0",
-    "happy-dom": "^20.14.5",
-    "playwright-core": "^1.63.0",
+    "happy-dom": "^21.0.1",
+    "playwright-core": "^1.64.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.11",
-    "vue-tsc": "^3.3.11"
+    "vue-tsc": "^3.3.13"
   },
   "packageManager": "pnpm@11.24.0",
   "engines": {
