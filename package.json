@@ -34,7 +34,7 @@
     "playwright-core": "^1.64.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.11",
-    "vue-tsc": "^3.3.11"
+    "vue-tsc": "^3.3.13"
   },
   "packageManager": "pnpm@11.24.0",
   "engines": {
